@@ -16,24 +16,24 @@ class _Login_State extends State<Login_> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Login'),
-          centerTitle: true,
-        ),
+         appBar: AppBar(
+           title: Text('Welcome back !'),
+           centerTitle: true,
+         ),
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
               // 
               // Logo - Image on top login screen 
               Padding(
-                padding: const EdgeInsets.only( top : 30.0),
+                padding: const EdgeInsets.only( top : 0.0),
                 child: Center(
                   child: Container(
                     width: 300,
                     height: 300,
                     decoration: BoxDecoration(
-                     // borderRadius: BorderRadius.circular(40),
-                      //border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(40),
+                      border: Border.all(color: Color(0x4FBB5A)),
                     ),
                     child: Image.asset('assets/images/login_img.png'),
                     ),
@@ -42,14 +42,16 @@ class _Login_State extends State<Login_> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: Padding(
-                  padding: const EdgeInsets.all( 12.0) ,
+                  padding: const EdgeInsets.all( 8.0) ,
                   child: Form(
                     key: _formkey, 
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
+                        //
+                        // Email box 
                         Padding(
-                          padding: const EdgeInsets.all(12.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: TextFormField(
                             validator: MultiValidator([
                               RequiredValidator(errorText: 'Enter email address !'),
@@ -59,16 +61,18 @@ class _Login_State extends State<Login_> {
                               hintText: 'Enter email' , 
                               labelText:  'Your email' ,
                               prefixIcon: Icon(Icons.email), 
-                              errorStyle: TextStyle(fontSize: 18.0), 
+                              errorStyle: TextStyle(fontSize: 12.0), 
                               border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.red),
-                                borderRadius: BorderRadius.all(Radius.circular(9.0)), 
+                                borderSide: BorderSide(color: Color(0x4FBB5A)),
+                                borderRadius: BorderRadius.all(Radius.circular(15.0)), 
                               ),
                             ),
                           ),
                         ),
+                        //
+                        // Password Box 
                         Padding( 
-                            padding: const EdgeInsets.all(12.0), 
+                            padding: const EdgeInsets.all(8.0), 
                             child: TextFormField( 
                               validator: MultiValidator([ 
                                 RequiredValidator( 
@@ -85,16 +89,100 @@ class _Login_State extends State<Login_> {
                                 labelText: 'Your password', 
                                 prefixIcon: Icon( 
                                   Icons.key, 
-                                  color: Colors.green, 
+                                  //color: Colors.green, 
                                 ), 
-                                errorStyle: TextStyle(fontSize: 18.0), 
+                                errorStyle: TextStyle(fontSize: 12.0), 
                                 border: OutlineInputBorder( 
-                                    borderSide: BorderSide(color: Colors.red), 
+                                    
+                                    borderSide: BorderSide(color: Color(0x4FBB5A) ), 
                                     borderRadius: 
-                                        BorderRadius.all(Radius.circular(9.0))), 
+                                        BorderRadius.all(Radius.circular(15.0))), 
                               ), 
                             ), 
-                          ), 
+                        ),
+                        //
+                        // Forgot password and sign up
+                        Row(
+                          children: <Widget>[
+                            Padding( 
+                                padding: EdgeInsets.fromLTRB(80, 0, 0, 0), 
+                                child: TextButton(
+                                  child: Text( 'Forgot Password', style: TextStyle(color: Colors.black  ),  ),
+                                  onPressed:(){
+                                    print('Nothing there! ');
+                                  },
+                                ),
+                            ),
+                            Padding( 
+                                padding: EdgeInsets.fromLTRB(0, 0, 0, 0), 
+                                  child: Text( 'or', style: TextStyle(color: Colors.black  ),  ),                                                                                                                         
+                            ),
+                            Padding( 
+                                padding: EdgeInsets.fromLTRB(0, 0, 0, 0), 
+                                child: TextButton(
+                                  child: Text( 'new user ?', style: TextStyle(color: Colors.black  ),  ),
+                                  onPressed:(){
+                                    print('Nothing there! ');
+                                  },
+                                ), 
+                                
+                                                        
+                            ),
+                          ],
+                        ),
+                        //
+                        //  Login button 
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                           // color:  Color(0x4FBB5A),
+                            child: Center(
+                              child: ElevatedButton(
+                                child: Text( 'Login', style: TextStyle(color: Colors.black,  fontSize:22 ,  ),) ,
+                                                               
+                                onPressed: (){
+                                  if( _formkey.currentState!.validate()){
+                                    print('Form submited!'); 
+                                  }
+                                },
+
+                              ),
+                            ),
+                            width: MediaQuery.of(context).size.width, 
+                              height: 50, 
+                          ),
+                        ),
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0) ,
+                            child: Center(
+                              child: Text('Or sign in using !'),
+                            ),
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                              child: Row(children: [
+                                Container(
+                                  height: 40,
+                                  width: 40,
+                                  child: Image.asset('assets/images/fb_icon.png' , //fit: BoxFit.fill 
+                                  ),
+                                ),
+                                SizedBox(width: 50.0),
+                                Container(
+                                  height: 40,
+                                  width: 40,
+                                  child: Image.asset('assets/images/gg_icon.png' , //fit: BoxFit.fill 
+                                  ),
+                                ),
+                              ],),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
