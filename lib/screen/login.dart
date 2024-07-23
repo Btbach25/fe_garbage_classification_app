@@ -12,16 +12,19 @@ class Login_ extends StatefulWidget {
 
 class _Login_State extends State<Login_> {
   final _formkey = GlobalKey<FormState>(); 
-
+  bool _isPasswordHidden = true ;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
          appBar: AppBar(
            title: Text('Welcome back !'),
            centerTitle: true,
          ),
         body: SingleChildScrollView(
+          
           child: Column(
+            
             children: <Widget>[
               // 
               // Logo - Image on top login screen 
@@ -67,6 +70,7 @@ class _Login_State extends State<Login_> {
                                 borderRadius: BorderRadius.all(Radius.circular(15.0)), 
                               ),
                             ),
+                            
                           ),
                         ),
                         //
@@ -84,6 +88,7 @@ class _Login_State extends State<Login_> {
                                     errorText: 
                                         'Password must be atlist one special character') 
                               ]), 
+                              obscureText: _isPasswordHidden,
                               decoration: InputDecoration( 
                                 hintText: 'Enter Password', 
                                 labelText: 'Your password', 
@@ -91,6 +96,14 @@ class _Login_State extends State<Login_> {
                                   Icons.key, 
                                   //color: Colors.green, 
                                 ), 
+                                suffixIcon: IconButton(
+                                  icon: Icon(_isPasswordHidden ? Icons.visibility_off: Icons.visibility ),
+                                  onPressed:(){
+                                    setState(() {
+                                      _isPasswordHidden = !_isPasswordHidden; 
+                                    });
+                                  },
+                                ),
                                 errorStyle: TextStyle(fontSize: 12.0), 
                                 border: OutlineInputBorder( 
                                     
