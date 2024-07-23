@@ -18,8 +18,10 @@ class _Login_State extends State<Login_> {
     return Scaffold(
         backgroundColor: Colors.white,
          appBar: AppBar(
-           title: Text('Welcome back !'),
-           centerTitle: true,
+          backgroundColor: Color.fromARGB(0, 61, 233, 4) ,
+          title: Text('Welcome back !'),
+          centerTitle: true,
+           //,
          ),
         body: SingleChildScrollView(
           
@@ -118,7 +120,7 @@ class _Login_State extends State<Login_> {
                         Row(
                           children: <Widget>[
                             Padding( 
-                                padding: EdgeInsets.fromLTRB(80, 0, 0, 0), 
+                                padding: EdgeInsets.fromLTRB(0, 0, 0, 0), 
                                 child: TextButton(
                                   child: Text( 'Forgot Password', style: TextStyle(color: Colors.black  ),  ),
                                   onPressed:(){
@@ -151,14 +153,12 @@ class _Login_State extends State<Login_> {
                            // color:  Color(0x4FBB5A),
                             child: Center(
                               child: ElevatedButton(
-                                child: Text( 'Login', style: TextStyle(color: Colors.black,  fontSize:22 ,  ),) ,
-                                                               
+                                child: Text( 'Login', style: TextStyle(color: Colors.black,  fontSize:22 ,  ),) ,                                                              
                                 onPressed: (){
                                   if( _formkey.currentState!.validate()){
                                     print('Form submited!'); 
                                   }
                                 },
-
                               ),
                             ),
                             width: MediaQuery.of(context).size.width, 
@@ -178,19 +178,21 @@ class _Login_State extends State<Login_> {
                           children: [
                             Padding(
                               padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                              child: Row(children: [
-                                Container(
+                              child: Row(children: [                    
+                                IconButton(
+                                  onPressed:(){}, 
+                                  icon: Image.asset('assets/images/fb_icon.png',
                                   height: 40,
                                   width: 40,
-                                  child: Image.asset('assets/images/fb_icon.png' , //fit: BoxFit.fill 
                                   ),
                                 ),
                                 SizedBox(width: 50.0),
-                                Container(
+                                IconButton(
+                                  onPressed:(){}, 
+                                  icon: Image.asset('assets/images/gg_icon.png',
                                   height: 40,
                                   width: 40,
-                                  child: Image.asset('assets/images/gg_icon.png' , //fit: BoxFit.fill 
-                                  ),
+                                  )
                                 ),
                               ],),
                             ),
