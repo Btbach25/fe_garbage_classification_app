@@ -54,7 +54,7 @@ class _Signup_State extends State<Signup_> {
                     padding: const EdgeInsets.only( left: 25),
                     child: Column(
                       children: <Widget>[
-                        Text(' Get On Board! ', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold ),),
+                        Text(' Get On Board! ', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 79, 187, 90) ),),
                         //Text(' Create your profile and start your journey.'),
                       ],
                     ),
@@ -96,12 +96,12 @@ class _Signup_State extends State<Signup_> {
                             decoration: InputDecoration(
                               hintText: 'Enter email' , 
                               labelText:  'Your email' ,
-                              prefixIcon: Icon(Icons.email), 
+                              prefixIcon: Icon(Icons.email, color: Color.fromARGB(255, 79, 187, 90),), 
                               //filled: true ,
                               //fillColor: Color.fromARGB(0, 108, 79, 187),
                               errorStyle: TextStyle(fontSize: 12.0), 
                               border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Color(0x4FBB5A)),
+                                borderSide: BorderSide(color: Color.fromARGB(255, 79, 187, 90)),
                                 borderRadius: BorderRadius.all(Radius.circular(15.0)), 
                                 
                               ),
@@ -130,10 +130,10 @@ class _Signup_State extends State<Signup_> {
                                 labelText: 'Your password', 
                                 prefixIcon: Icon( 
                                   Icons.key, 
-                                  //color: Colors.green, 
+                                  color: Color.fromARGB(255, 79, 187, 90), 
                                 ), 
                                 suffixIcon: IconButton(
-                                  icon: Icon(_isPasswordHidden ? Icons.visibility_off: Icons.visibility ),
+                                  icon: Icon(_isPasswordHidden ? Icons.visibility_off: Icons.visibility, color: Color.fromARGB(255, 79, 187, 90), ),
                                   onPressed:(){
                                     setState(() {
                                       _isPasswordHidden = !_isPasswordHidden; 
@@ -143,7 +143,7 @@ class _Signup_State extends State<Signup_> {
                                 errorStyle: TextStyle(fontSize: 12.0), 
                                 border: OutlineInputBorder( 
                                     
-                                    borderSide: BorderSide(color: Color(0x4FBB5A) ), 
+                                    borderSide: BorderSide(color: Color.fromARGB(255, 79, 187, 90) ), 
                                     borderRadius: 
                                         BorderRadius.all(Radius.circular(15.0))), 
                               ), 
@@ -161,10 +161,10 @@ class _Signup_State extends State<Signup_> {
                             decoration: InputDecoration(
                               hintText: 'Enter Name' , 
                               labelText:  'Your name' ,
-                              prefixIcon: Icon(Icons.person ), 
+                              prefixIcon: Icon(Icons.person , color: Color.fromARGB(255, 79, 187, 90), ), 
                               errorStyle: TextStyle(fontSize: 12.0), 
                               border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Color(0x4FBB5A)),
+                                borderSide: BorderSide(color: Color.fromARGB(255, 79, 187, 90)),
                                 borderRadius: BorderRadius.all(Radius.circular(15.0)), 
                               ),
                             ),
@@ -202,7 +202,7 @@ class _Signup_State extends State<Signup_> {
                             child: Center(
                               child: ElevatedButton(
                                 style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(Colors.black),
+                                  backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 79, 187, 90)),
                                 ),
                                 child: Text( 'Sign Up!', style: TextStyle(color: Colors.white,  fontSize:22 ,  ),) ,                                                              
                                 onPressed: (){
