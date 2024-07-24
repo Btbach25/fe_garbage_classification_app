@@ -1,6 +1,7 @@
 
 import 'dart:async'; 
 import 'package:fe_garbage_classification_app/screen/signup.dart';
+import 'package:fe_garbage_classification_app/screen/welcome.dart';
 import 'package:flutter/material.dart'; 
 import 'package:fe_garbage_classification_app/screen/login.dart'; 
   

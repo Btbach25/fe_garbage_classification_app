@@ -12,9 +12,11 @@ class _welcum_State extends State<welcum_> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0x4FBB5A),
+      backgroundColor: Color.fromARGB(255, 79, 187, 90),
       body: SingleChildScrollView(
-          
+          child: Column(
+            
+          ),
       ),
     );
   }

@@ -39,9 +39,8 @@ class _Login_State extends State<Login_> {
                 padding: const EdgeInsets.only( top : 0.0),
                 child: Center(
                   child: Container(
-                    width: 300,
-                    height: 300,
-                    
+                    width: 400,
+                    height: 400,
                     child: Image.asset('assets/images/login_img.png'),
                     ),
                   ),
@@ -93,10 +92,12 @@ class _Login_State extends State<Login_> {
                               labelText:  'Your email' ,
                               prefixIcon: Icon(Icons.email, color: Color.fromARGB(255, 79, 187, 90),), 
                               errorStyle: TextStyle(fontSize: 12.0), 
-                              border: OutlineInputBorder(
+                              
+                              /*border: OutlineInputBorder(
                                 borderSide: BorderSide(color: Color.fromARGB(255, 79, 187, 90)),
                                 borderRadius: BorderRadius.all(Radius.circular(15.0)), 
                               ),
+                              */
                             ),
                             
                           ),
@@ -133,10 +134,7 @@ class _Login_State extends State<Login_> {
                                   },
                                 ),
                                 errorStyle: TextStyle(fontSize: 12.0), 
-                                border: OutlineInputBorder(                                    
-                                    borderSide: BorderSide(color: Color.fromARGB(255, 79, 187, 90) ), 
-                                    borderRadius: 
-                                        BorderRadius.all(Radius.circular(15.0))), 
+                                 
                               ), 
                             ), 
                         ),
