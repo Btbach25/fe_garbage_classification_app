@@ -36,8 +36,8 @@ class _Change_pass_State extends State<Change_pass_> {
                 padding: const EdgeInsets.only( top : 0.0),
                 child: Center(
                   child: Container(
-                    width: 300,
-                    height: 300,
+                    width: 400,
+                    height: 400,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(40),
                       border: Border.all(color: Color(0x4FBB5A)),
@@ -101,10 +101,7 @@ class _Change_pass_State extends State<Change_pass_> {
                                   },
                                 ),
                               errorStyle: TextStyle(fontSize: 12.0), 
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Color.fromARGB(255, 79, 187, 90)),
-                                borderRadius: BorderRadius.all(Radius.circular(15.0)), 
-                              ),
+                              
                             ),
                             
                           ),
@@ -123,10 +120,7 @@ class _Change_pass_State extends State<Change_pass_> {
                               labelText:  'Security Code' ,
                               prefixIcon: Icon(Icons.security, color: Color.fromARGB(255, 79, 187, 90),), 
                               errorStyle: TextStyle(fontSize: 12.0), 
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Color.fromARGB(255, 79, 187, 90)),
-                                borderRadius: BorderRadius.all(Radius.circular(15.0)), 
-                              ),
+                              
                             ),
                             
                           ),
@@ -163,11 +157,7 @@ class _Change_pass_State extends State<Change_pass_> {
                                   },
                                 ),
                                 errorStyle: TextStyle(fontSize: 12.0), 
-                                border: OutlineInputBorder( 
-                                    
-                                    borderSide: BorderSide(color: Color.fromARGB(255, 79, 187, 90) ), 
-                                    borderRadius: 
-                                        BorderRadius.all(Radius.circular(15.0))), 
+                                
                               ), 
                             ), 
                         ),

@@ -29,14 +29,14 @@ class _Signup_State extends State<Signup_> {
             children: <Widget>[
               // 
               // Header 
-              Row(
+              Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only( left: 25),
+                    padding: const EdgeInsets.all( 0.0),
                     child: Container(
                       child: Container(
-                        width: 300,
-                        height: 300,
+                        width: 400,
+                        height: 400,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(40),
                           border: Border.all(color: Color(0x4FBB5A)),
@@ -100,11 +100,7 @@ class _Signup_State extends State<Signup_> {
                               //filled: true ,
                               //fillColor: Color.fromARGB(0, 108, 79, 187),
                               errorStyle: TextStyle(fontSize: 12.0), 
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Color.fromARGB(255, 79, 187, 90)),
-                                borderRadius: BorderRadius.all(Radius.circular(15.0)), 
-                                
-                              ),
+                             
                             ),
                             
                           ),
@@ -141,11 +137,7 @@ class _Signup_State extends State<Signup_> {
                                   },
                                 ),
                                 errorStyle: TextStyle(fontSize: 12.0), 
-                                border: OutlineInputBorder( 
-                                    
-                                    borderSide: BorderSide(color: Color.fromARGB(255, 79, 187, 90) ), 
-                                    borderRadius: 
-                                        BorderRadius.all(Radius.circular(15.0))), 
+                                
                               ), 
                             ), 
                         ),
@@ -163,10 +155,7 @@ class _Signup_State extends State<Signup_> {
                               labelText:  'Your name' ,
                               prefixIcon: Icon(Icons.person , color: Color.fromARGB(255, 79, 187, 90), ), 
                               errorStyle: TextStyle(fontSize: 12.0), 
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Color.fromARGB(255, 79, 187, 90)),
-                                borderRadius: BorderRadius.all(Radius.circular(15.0)), 
-                              ),
+                              
                             ),
                             
                           ),
