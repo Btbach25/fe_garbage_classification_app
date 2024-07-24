@@ -1,20 +1,18 @@
 
-import 'dart:ui';
-
-import 'package:fe_garbage_classification_app/screen/change_pass.dart';
-import 'package:fe_garbage_classification_app/screen/signup.dart';
 import 'package:flutter/foundation.dart'; 
-import 'package:flutter/material.dart'; 
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart'; 
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:fe_garbage_classification_app/screen/login.dart';
 
-class Login_ extends StatefulWidget {
-  const Login_({super.key});
+class Signup_ extends StatefulWidget {
+  const Signup_({super.key});
 
   @override
-  State<Login_> createState() => _Login_State();
+  State<Signup_> createState() => _Signup_State();
 }
 
-class _Login_State extends State<Login_> {
+class _Signup_State extends State<Signup_> {
   final _formkey = GlobalKey<FormState>(); 
   bool _isPasswordHidden = true ;
   @override
@@ -22,32 +20,33 @@ class _Login_State extends State<Login_> {
     return Scaffold(
         backgroundColor: Colors.white,
          appBar: AppBar(
+          //
           toolbarHeight: 30,
           backgroundColor: Color.fromARGB(0, 61, 233, 4) ,
-          //title: Text('Welcome back !'),
-          //centerTitle: true,
-           //,
          ),
         body: SingleChildScrollView(
-          
           child: Column(
-            
             children: <Widget>[
               // 
-              // Logo - Image on top login screen 
-              Padding(
-                padding: const EdgeInsets.only( top : 0.0),
-                child: Center(
-                  child: Container(
-                    width: 300,
-                    height: 300,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
-                      border: Border.all(color: Color(0x4FBB5A)),
-                    ),
-                    child: Image.asset('assets/images/login_img.png'),
-                    ),
+              // Header 
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only( left: 25),
+                    child: Container(
+                      child: Container(
+                        width: 300,
+                        height: 300,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(40),
+                          border: Border.all(color: Color(0x4FBB5A)),
+                        ),
+                        child: Image.asset('assets/images/login_img.png'),
+                        ),
+                      ),
+                  
                   ),
+                ],
               ),
               Row(
                 children: [
@@ -55,7 +54,8 @@ class _Login_State extends State<Login_> {
                     padding: const EdgeInsets.only( left: 25),
                     child: Column(
                       children: <Widget>[
-                        Text(' Welcome back! ', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold ),),
+                        Text(' Get On Board! ', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold ),),
+                        //Text(' Create your profile and start your journey.'),
                       ],
                     ),
                   ),
@@ -67,7 +67,8 @@ class _Login_State extends State<Login_> {
                     padding: const EdgeInsets.only( left: 29),
                     child: Column(
                       children: <Widget>[
-                        Text(' Sign in to pick up where you left off. '),
+                        //Text(' Get On Board! ', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold ),),
+                        Text(' Create your profile and start your journey.'),
                       ],
                     ),
                   ),
@@ -87,6 +88,7 @@ class _Login_State extends State<Login_> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextFormField(
+                            
                             validator: MultiValidator([
                               RequiredValidator(errorText: 'Enter email address !'),
                               EmailValidator(errorText: 'Correct email filled !'),
@@ -95,10 +97,13 @@ class _Login_State extends State<Login_> {
                               hintText: 'Enter email' , 
                               labelText:  'Your email' ,
                               prefixIcon: Icon(Icons.email), 
+                              //filled: true ,
+                              //fillColor: Color.fromARGB(0, 108, 79, 187),
                               errorStyle: TextStyle(fontSize: 12.0), 
                               border: OutlineInputBorder(
                                 borderSide: BorderSide(color: Color(0x4FBB5A)),
                                 borderRadius: BorderRadius.all(Radius.circular(15.0)), 
+                                
                               ),
                             ),
                             
@@ -112,12 +117,12 @@ class _Login_State extends State<Login_> {
                               validator: MultiValidator([ 
                                 RequiredValidator( 
                                     errorText: 'Please enter Password'), 
-                                MinLengthValidator(8, 
+                                MinLengthValidator(6, 
                                     errorText: 
-                                        'Password must be atlist 8 digit'), 
+                                        'Password must be atlist 6 digit'), 
                                 PatternValidator(r'(?=.*?[#!@$%^&*-])', 
                                     errorText: 
-                                        'Password must be atlist one special character') 
+                                        'Password must be at least one special character') 
                               ]), 
                               obscureText: _isPasswordHidden,
                               decoration: InputDecoration( 
@@ -136,7 +141,8 @@ class _Login_State extends State<Login_> {
                                   },
                                 ),
                                 errorStyle: TextStyle(fontSize: 12.0), 
-                                border: OutlineInputBorder(                                    
+                                border: OutlineInputBorder( 
+                                    
                                     borderSide: BorderSide(color: Color(0x4FBB5A) ), 
                                     borderRadius: 
                                         BorderRadius.all(Radius.circular(15.0))), 
@@ -144,47 +150,49 @@ class _Login_State extends State<Login_> {
                             ), 
                         ),
                         //
-                        // Forgot password and sign up
+                        // Name box
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            validator: MultiValidator([
+                              RequiredValidator(errorText: 'Enter your name !'),
+                              //EmailValidator(errorText: 'Correct email filled !'),
+                            ]),
+                            decoration: InputDecoration(
+                              hintText: 'Enter Name' , 
+                              labelText:  'Your name' ,
+                              prefixIcon: Icon(Icons.person ), 
+                              errorStyle: TextStyle(fontSize: 12.0), 
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Color(0x4FBB5A)),
+                                borderRadius: BorderRadius.all(Radius.circular(15.0)), 
+                              ),
+                            ),
+                            
+                          ),
+                        ),
+                        //
+                        // already have account
+                        /*
                         Row(
                           children: <Widget>[
                             Padding( 
                                 padding: EdgeInsets.fromLTRB(0, 0, 0, 0), 
                                 child: TextButton(
-                                  child: Text( 'Forgot Password', style: TextStyle(color: Colors.black  ),  ),
+                                  child: Text( 'Already have an account ?', style: TextStyle(color: Colors.black  ),  ),
                                   onPressed:(){
-                                    
                                     try{
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => Change_pass_()  ));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => Login_()  ));
                                     }catch(e){
                                       print(e);
                                     }
-                                 
                                   },
                                 ),
                             ),
-                            Padding( 
-                                padding: EdgeInsets.fromLTRB(0, 0, 0, 0), 
-                                  child: Text( 'or', style: TextStyle(color: Colors.black  ),  ),                                                                                                                         
-                            ),
-                            Padding( 
-                                padding: EdgeInsets.fromLTRB(0, 0, 0, 0), 
-                                child: TextButton(
-                                  child: Text( 'new user ?', style: TextStyle(color: Colors.black  ),  ),
-                                  onPressed:(){
-                                    
-                                    try{
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => Signup_()  ));
-                                    }catch(e){
-                                      print(e);
-                                    }
-                                 
-                                  },
-                                ), 
-                                
-                                                       
-                            ),
+                            
                           ],
                         ),
+                        */
                         //
                         //  Login button 
                         Padding(
@@ -196,7 +204,7 @@ class _Login_State extends State<Login_> {
                                 style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(Colors.black),
                                 ),
-                                child: Text( 'Login', style: TextStyle(color: Colors.white,  fontSize:22 ,  ),) ,                                                              
+                                child: Text( 'Sign Up!', style: TextStyle(color: Colors.white,  fontSize:22 ,  ),) ,                                                              
                                 onPressed: (){
                                   if( _formkey.currentState!.validate()){
                                     print('Form submited!'); 
@@ -205,7 +213,7 @@ class _Login_State extends State<Login_> {
                               ),
                             ),
                             width: MediaQuery.of(context).size.width, 
-                            height: 50, 
+                              height: 50, 
                           ),
                         ),
                         Center(

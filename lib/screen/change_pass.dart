@@ -1,20 +1,17 @@
 
-import 'dart:ui';
-
-import 'package:fe_garbage_classification_app/screen/change_pass.dart';
 import 'package:fe_garbage_classification_app/screen/signup.dart';
 import 'package:flutter/foundation.dart'; 
 import 'package:flutter/material.dart'; 
 import 'package:form_field_validator/form_field_validator.dart';
 
-class Login_ extends StatefulWidget {
-  const Login_({super.key});
+class Change_pass_ extends StatefulWidget {
+  const Change_pass_({super.key});
 
   @override
-  State<Login_> createState() => _Login_State();
+  State<Change_pass_> createState() => _Change_pass_State();
 }
 
-class _Login_State extends State<Login_> {
+class _Change_pass_State extends State<Change_pass_> {
   final _formkey = GlobalKey<FormState>(); 
   bool _isPasswordHidden = true ;
   @override
@@ -55,7 +52,8 @@ class _Login_State extends State<Login_> {
                     padding: const EdgeInsets.only( left: 25),
                     child: Column(
                       children: <Widget>[
-                        Text(' Welcome back! ', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold ),),
+                        Text(' Do not remember your pass ?  ', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold ),),
+                        //Text(' Create your profile and start your journey.'),
                       ],
                     ),
                   ),
@@ -67,7 +65,8 @@ class _Login_State extends State<Login_> {
                     padding: const EdgeInsets.only( left: 29),
                     child: Column(
                       children: <Widget>[
-                        Text(' Sign in to pick up where you left off. '),
+                        //Text(' Get On Board! ', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold ),),
+                        Text(' Dont worry, we can help you create a new one :3 '),
                       ],
                     ),
                   ),
@@ -95,6 +94,34 @@ class _Login_State extends State<Login_> {
                               hintText: 'Enter email' , 
                               labelText:  'Your email' ,
                               prefixIcon: Icon(Icons.email), 
+                              suffixIcon: IconButton(
+                                  icon: Icon(Icons.send),
+                                  onPressed:(){
+                                    // send sec code to gmail
+                                  },
+                                ),
+                              errorStyle: TextStyle(fontSize: 12.0), 
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Color(0x4FBB5A)),
+                                borderRadius: BorderRadius.all(Radius.circular(15.0)), 
+                              ),
+                            ),
+                            
+                          ),
+                        ),
+                        //
+                        // Code box ( about 6 digit) 
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            validator: MultiValidator([
+                              RequiredValidator(errorText: 'Enter code'),
+                              //EmailValidator(errorText: 'Correct email filled !'),
+                            ]),
+                            decoration: InputDecoration(
+                              hintText: 'Enter code (6 digits)' , 
+                              labelText:  'Security Code' ,
+                              prefixIcon: Icon(Icons.security), 
                               errorStyle: TextStyle(fontSize: 12.0), 
                               border: OutlineInputBorder(
                                 borderSide: BorderSide(color: Color(0x4FBB5A)),
@@ -121,8 +148,8 @@ class _Login_State extends State<Login_> {
                               ]), 
                               obscureText: _isPasswordHidden,
                               decoration: InputDecoration( 
-                                hintText: 'Enter Password', 
-                                labelText: 'Your password', 
+                                hintText: 'Enter new password', 
+                                labelText: 'Your new password', 
                                 prefixIcon: Icon( 
                                   Icons.key, 
                                   //color: Colors.green, 
@@ -136,7 +163,8 @@ class _Login_State extends State<Login_> {
                                   },
                                 ),
                                 errorStyle: TextStyle(fontSize: 12.0), 
-                                border: OutlineInputBorder(                                    
+                                border: OutlineInputBorder( 
+                                    
                                     borderSide: BorderSide(color: Color(0x4FBB5A) ), 
                                     borderRadius: 
                                         BorderRadius.all(Radius.circular(15.0))), 
@@ -145,46 +173,7 @@ class _Login_State extends State<Login_> {
                         ),
                         //
                         // Forgot password and sign up
-                        Row(
-                          children: <Widget>[
-                            Padding( 
-                                padding: EdgeInsets.fromLTRB(0, 0, 0, 0), 
-                                child: TextButton(
-                                  child: Text( 'Forgot Password', style: TextStyle(color: Colors.black  ),  ),
-                                  onPressed:(){
-                                    
-                                    try{
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => Change_pass_()  ));
-                                    }catch(e){
-                                      print(e);
-                                    }
-                                 
-                                  },
-                                ),
-                            ),
-                            Padding( 
-                                padding: EdgeInsets.fromLTRB(0, 0, 0, 0), 
-                                  child: Text( 'or', style: TextStyle(color: Colors.black  ),  ),                                                                                                                         
-                            ),
-                            Padding( 
-                                padding: EdgeInsets.fromLTRB(0, 0, 0, 0), 
-                                child: TextButton(
-                                  child: Text( 'new user ?', style: TextStyle(color: Colors.black  ),  ),
-                                  onPressed:(){
-                                    
-                                    try{
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => Signup_()  ));
-                                    }catch(e){
-                                      print(e);
-                                    }
-                                 
-                                  },
-                                ), 
-                                
-                                                       
-                            ),
-                          ],
-                        ),
+                        
                         //
                         //  Login button 
                         Padding(
@@ -196,7 +185,7 @@ class _Login_State extends State<Login_> {
                                 style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(Colors.black),
                                 ),
-                                child: Text( 'Login', style: TextStyle(color: Colors.white,  fontSize:22 ,  ),) ,                                                              
+                                child: Text( 'Change to new password', style: TextStyle(color: Colors.white,  fontSize:22 ,  ),) ,                                                              
                                 onPressed: (){
                                   if( _formkey.currentState!.validate()){
                                     print('Form submited!'); 
@@ -205,7 +194,7 @@ class _Login_State extends State<Login_> {
                               ),
                             ),
                             width: MediaQuery.of(context).size.width, 
-                            height: 50, 
+                              height: 50, 
                           ),
                         ),
                         Center(
