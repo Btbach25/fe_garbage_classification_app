@@ -41,10 +41,7 @@ class _Login_State extends State<Login_> {
                   child: Container(
                     width: 300,
                     height: 300,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
-                      border: Border.all(color: Color(0x4FBB5A)),
-                    ),
+                    
                     child: Image.asset('assets/images/login_img.png'),
                     ),
                   ),
@@ -55,7 +52,7 @@ class _Login_State extends State<Login_> {
                     padding: const EdgeInsets.only( left: 25),
                     child: Column(
                       children: <Widget>[
-                        Text(' Welcome back! ', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold ),),
+                        Text(' Welcome back! ', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold , color: Color.fromARGB(255, 79, 187, 90)),),
                       ],
                     ),
                   ),
@@ -94,10 +91,10 @@ class _Login_State extends State<Login_> {
                             decoration: InputDecoration(
                               hintText: 'Enter email' , 
                               labelText:  'Your email' ,
-                              prefixIcon: Icon(Icons.email), 
+                              prefixIcon: Icon(Icons.email, color: Color.fromARGB(255, 79, 187, 90),), 
                               errorStyle: TextStyle(fontSize: 12.0), 
                               border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Color(0x4FBB5A)),
+                                borderSide: BorderSide(color: Color.fromARGB(255, 79, 187, 90)),
                                 borderRadius: BorderRadius.all(Radius.circular(15.0)), 
                               ),
                             ),
@@ -125,10 +122,10 @@ class _Login_State extends State<Login_> {
                                 labelText: 'Your password', 
                                 prefixIcon: Icon( 
                                   Icons.key, 
-                                  //color: Colors.green, 
+                                  color: Color.fromARGB(255, 79, 187, 90), 
                                 ), 
                                 suffixIcon: IconButton(
-                                  icon: Icon(_isPasswordHidden ? Icons.visibility_off: Icons.visibility ),
+                                  icon: Icon(_isPasswordHidden ? Icons.visibility_off: Icons.visibility, color: Color.fromARGB(255, 79, 187, 90), ),
                                   onPressed:(){
                                     setState(() {
                                       _isPasswordHidden = !_isPasswordHidden; 
@@ -137,7 +134,7 @@ class _Login_State extends State<Login_> {
                                 ),
                                 errorStyle: TextStyle(fontSize: 12.0), 
                                 border: OutlineInputBorder(                                    
-                                    borderSide: BorderSide(color: Color(0x4FBB5A) ), 
+                                    borderSide: BorderSide(color: Color.fromARGB(255, 79, 187, 90) ), 
                                     borderRadius: 
                                         BorderRadius.all(Radius.circular(15.0))), 
                               ), 
@@ -150,7 +147,7 @@ class _Login_State extends State<Login_> {
                             Padding( 
                                 padding: EdgeInsets.fromLTRB(0, 0, 0, 0), 
                                 child: TextButton(
-                                  child: Text( 'Forgot Password', style: TextStyle(color: Colors.black  ),  ),
+                                  child: Text( 'Forgot Password', style: TextStyle(color: Color.fromARGB(255, 79, 187, 90) ),  ),
                                   onPressed:(){
                                     
                                     try{
@@ -169,7 +166,7 @@ class _Login_State extends State<Login_> {
                             Padding( 
                                 padding: EdgeInsets.fromLTRB(0, 0, 0, 0), 
                                 child: TextButton(
-                                  child: Text( 'new user ?', style: TextStyle(color: Colors.black  ),  ),
+                                  child: Text( 'new user ?', style: TextStyle(color: Color.fromARGB(255, 79, 187, 90)  ),  ),
                                   onPressed:(){
                                     
                                     try{
@@ -194,7 +191,7 @@ class _Login_State extends State<Login_> {
                             child: Center(
                               child: ElevatedButton(
                                 style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(Colors.black),
+                                  backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 79, 187, 90)),
                                 ),
                                 child: Text( 'Login', style: TextStyle(color: Colors.white,  fontSize:22 ,  ),) ,                                                              
                                 onPressed: (){

@@ -52,7 +52,7 @@ class _Change_pass_State extends State<Change_pass_> {
                     padding: const EdgeInsets.only( left: 25),
                     child: Column(
                       children: <Widget>[
-                        Text(' Do not remember your pass ?  ', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold ),),
+                        Text(' Do not remember your pass ?  ', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold,color: Color.fromARGB(255, 79, 187, 90) ),),
                         //Text(' Create your profile and start your journey.'),
                       ],
                     ),
@@ -93,16 +93,16 @@ class _Change_pass_State extends State<Change_pass_> {
                             decoration: InputDecoration(
                               hintText: 'Enter email' , 
                               labelText:  'Your email' ,
-                              prefixIcon: Icon(Icons.email), 
+                              prefixIcon: Icon(Icons.email,color: Color.fromARGB(255, 79, 187, 90),), 
                               suffixIcon: IconButton(
-                                  icon: Icon(Icons.send),
+                                  icon: Icon(Icons.send,color: Color.fromARGB(255, 79, 187, 90),),
                                   onPressed:(){
                                     // send sec code to gmail
                                   },
                                 ),
                               errorStyle: TextStyle(fontSize: 12.0), 
                               border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Color(0x4FBB5A)),
+                                borderSide: BorderSide(color: Color.fromARGB(255, 79, 187, 90)),
                                 borderRadius: BorderRadius.all(Radius.circular(15.0)), 
                               ),
                             ),
@@ -121,10 +121,10 @@ class _Change_pass_State extends State<Change_pass_> {
                             decoration: InputDecoration(
                               hintText: 'Enter code (6 digits)' , 
                               labelText:  'Security Code' ,
-                              prefixIcon: Icon(Icons.security), 
+                              prefixIcon: Icon(Icons.security, color: Color.fromARGB(255, 79, 187, 90),), 
                               errorStyle: TextStyle(fontSize: 12.0), 
                               border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Color(0x4FBB5A)),
+                                borderSide: BorderSide(color: Color.fromARGB(255, 79, 187, 90)),
                                 borderRadius: BorderRadius.all(Radius.circular(15.0)), 
                               ),
                             ),
@@ -152,10 +152,10 @@ class _Change_pass_State extends State<Change_pass_> {
                                 labelText: 'Your new password', 
                                 prefixIcon: Icon( 
                                   Icons.key, 
-                                  //color: Colors.green, 
+                                  color: Color.fromARGB(255, 79, 187, 90), 
                                 ), 
                                 suffixIcon: IconButton(
-                                  icon: Icon(_isPasswordHidden ? Icons.visibility_off: Icons.visibility ),
+                                  icon: Icon(_isPasswordHidden ? Icons.visibility_off: Icons.visibility,color: Color.fromARGB(255, 79, 187, 90), ),
                                   onPressed:(){
                                     setState(() {
                                       _isPasswordHidden = !_isPasswordHidden; 
@@ -165,7 +165,7 @@ class _Change_pass_State extends State<Change_pass_> {
                                 errorStyle: TextStyle(fontSize: 12.0), 
                                 border: OutlineInputBorder( 
                                     
-                                    borderSide: BorderSide(color: Color(0x4FBB5A) ), 
+                                    borderSide: BorderSide(color: Color.fromARGB(255, 79, 187, 90) ), 
                                     borderRadius: 
                                         BorderRadius.all(Radius.circular(15.0))), 
                               ), 
@@ -183,7 +183,7 @@ class _Change_pass_State extends State<Change_pass_> {
                             child: Center(
                               child: ElevatedButton(
                                 style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(Colors.black),
+                                  backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 79, 187, 90)),
                                 ),
                                 child: Text( 'Change to new password', style: TextStyle(color: Colors.white,  fontSize:22 ,  ),) ,                                                              
                                 onPressed: (){
