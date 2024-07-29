@@ -1,9 +1,9 @@
 
 import 'dart:async'; 
-import 'package:fe_garbage_classification_app/screen/signup.dart';
-import 'package:fe_garbage_classification_app/screen/welcome.dart';
+import 'package:fe_garbage_classification_app/start_screen/signup.dart';
+import 'package:fe_garbage_classification_app/start_screen/welcome.dart';
 import 'package:flutter/material.dart'; 
-import 'package:fe_garbage_classification_app/screen/login.dart'; 
+import 'package:fe_garbage_classification_app/start_screen/login.dart'; 
   
 void main() {
   runApp(const MyApp());
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 79, 187, 90)),
         useMaterial3: true,
       ),
-      home: const Login_(),
+      home: const welcum_(),
     );
   }
 }
