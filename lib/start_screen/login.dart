@@ -6,7 +6,7 @@ import 'package:fe_garbage_classification_app/start_screen/signup.dart';
 import 'package:flutter/foundation.dart'; 
 import 'package:flutter/material.dart'; 
 import 'package:form_field_validator/form_field_validator.dart';
-
+import 'network/network_request.dart';
 class Login_ extends StatefulWidget {
   const Login_({super.key});
 
@@ -16,7 +16,23 @@ class Login_ extends StatefulWidget {
 
 class _Login_State extends State<Login_> {
   final _formkey = GlobalKey<FormState>(); 
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordHidden = true ;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _submitForm() {
+    final String username = _emailController.text;
+    final String password = _passwordController.text;
+    
+    TokenStorage.fetchToken(username, password);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,6 +99,7 @@ class _Login_State extends State<Login_> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextFormField(
+                            controller: _emailController,
                             validator: MultiValidator([
                               RequiredValidator(errorText: 'Enter email address !'),
                               EmailValidator(errorText: 'Correct email filled !'),
@@ -107,6 +124,7 @@ class _Login_State extends State<Login_> {
                         Padding( 
                             padding: const EdgeInsets.all(8.0), 
                             child: TextFormField( 
+                              controller: _passwordController,
                               validator: MultiValidator([ 
                                 RequiredValidator( 
                                     errorText: 'Please enter Password'), 
@@ -192,11 +210,7 @@ class _Login_State extends State<Login_> {
                                   backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 79, 187, 90)),
                                 ),
                                 child: Text( 'Login', style: TextStyle(color: Colors.white,  fontSize:22 ,  ),) ,                                                              
-                                onPressed: (){
-                                  if( _formkey.currentState!.validate()){
-                                    print('Form submited!'); 
-                                  }
-                                },
+                                onPressed: _submitForm,
                               ),
                             ),
                             width: MediaQuery.of(context).size.width, 
