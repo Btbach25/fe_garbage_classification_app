@@ -1,5 +1,7 @@
+import 'package:fe_garbage_classification_app/blog_screen/home_blog.dart';
 import 'package:flutter/foundation.dart'; 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';  
 import 'package:fe_garbage_classification_app/start_screen/login.dart';
 import 'package:fe_garbage_classification_app/start_screen/signup.dart';
@@ -21,13 +23,11 @@ class _welcum_State extends State<welcum_> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        /*decoration: BoxDecoration(
-          gradient: LinearGradient(
-          colors: [Color.fromARGB(255, 203, 200, 187), Color.fromARGB(255, 215, 204, 186)],
-          begin: Alignment.topRight,
-          end: Alignment.bottomCenter,
+        decoration: BoxDecoration(
+          image : DecorationImage(
+            image : AssetImage('assets/images/welcom_bg.png'),
           ),
-        ),*/
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -76,7 +76,7 @@ class _welcum_State extends State<welcum_> {
                                   onPressed:(){
                                     
                                     try{
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => Login_()  ));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => homeblog_()  ));
                                     }catch(e){
                                       print(e);
                                     }
