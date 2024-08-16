@@ -1,6 +1,6 @@
 
 import 'dart:ui';
-
+import 'package:fe_garbage_classification_app/blog_screen/home_blog.dart';
 import 'package:fe_garbage_classification_app/start_screen/change_pass.dart';
 import 'package:fe_garbage_classification_app/start_screen/signup.dart';
 import 'package:flutter/foundation.dart'; 
@@ -27,11 +27,14 @@ class _Login_State extends State<Login_> {
     super.dispose();
   }
 
-  void _submitForm() {
+  Future<void> _submitLogin() async {
     final String username = _emailController.text;
     final String password = _passwordController.text;
-    
-    TokenStorage.fetchToken(username, password);
+    try {
+      await TokenStorage.fetchToken(username, password);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homeblog_()  ));
+    } catch (e) {
+      print('Failed to fetch token: $e');}
   }
   @override
   Widget build(BuildContext context) {
@@ -210,7 +213,7 @@ class _Login_State extends State<Login_> {
                                   backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 79, 187, 90)),
                                 ),
                                 child: Text( 'Login', style: TextStyle(color: Colors.white,  fontSize:22 ,  ),) ,                                                              
-                                onPressed: _submitForm,
+                                onPressed: _submitLogin,
                               ),
                             ),
                             width: MediaQuery.of(context).size.width, 

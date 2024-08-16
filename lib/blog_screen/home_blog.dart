@@ -4,6 +4,7 @@ import 'package:fe_garbage_classification_app/blog_screen/postwidget.dart';
 import 'package:flutter/foundation.dart'; 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';  
 class homeblog_ extends StatefulWidget {
   const homeblog_({super.key});
@@ -16,8 +17,23 @@ class _homeblog_State extends State<homeblog_> {
 
    var selectedIndex = 0;  
 
+  DateTime? lastPressed;
+
+  //Method handle pop up
+  Future<bool> _onWillPop() async { 
+    final DateTime now = DateTime.now();
+    if (lastPressed == null || now.difference(lastPressed!) > Duration(seconds: 2)) { //Set the interval to 2 clicks
+      lastPressed = now;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Nhấn thêm lần nữa để thoát')),
+      );
+      return Future.value(false);
+    }
+    return Future.value(true);
+  }
   @override
   Widget build(BuildContext context) {
+    
     Widget page;
     switch (selectedIndex) {
       case 0:
@@ -28,7 +44,19 @@ class _homeblog_State extends State<homeblog_> {
     default:
     throw UnimplementedError('no widget for $selectedIndex');
     }
-    return LayoutBuilder(
+    return PopScope( //Pressing back twice will exit the application
+      canPop: false,
+      onPopInvoked: (didPop) async {
+        if (didPop) {
+          return;
+        }
+        final bool shouldPop = await _onWillPop() ?? false;
+        if (context.mounted && shouldPop) {
+          await SystemNavigator.pop();
+        }
+      },
+      child:
+     LayoutBuilder(
       builder: (context,constraints) {
         return Scaffold(
           appBar: AppBar(
@@ -79,6 +107,7 @@ class _homeblog_State extends State<homeblog_> {
         
         );
       }
+    )
     );
   }
 }
