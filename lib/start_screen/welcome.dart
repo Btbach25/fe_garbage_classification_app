@@ -76,7 +76,7 @@ class _welcum_State extends State<welcum_> {
                                   onPressed:(){
                                     
                                     try{
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => homeblog_()  ));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => Login_()  ));
                                     }catch(e){
                                       print(e);
                                     }
