@@ -1,3 +1,4 @@
+import 'package:fe_garbage_classification_app/start_screen/network/google_sign_in.dart';
 import 'package:flutter/foundation.dart'; 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';  
 import 'package:fe_garbage_classification_app/start_screen/login.dart';
 import 'package:fe_garbage_classification_app/start_screen/signup.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class welcum_ extends StatefulWidget {
   const welcum_({super.key});
 
@@ -38,6 +40,7 @@ class _welcum_State extends State<welcum_> {
         }
         final bool shouldPop = await _onWillPop() ?? false;
         if (context.mounted && shouldPop) {
+          GoogleSignInApi.logout();
           await SystemNavigator.pop();
         }
       },

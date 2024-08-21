@@ -3,11 +3,11 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TokenStorage {
-  static const String url = 'http://10.0.2.2:8000/api/token/';
+  static const String url = 'http://10.0.2.2:8000/auth';
 
   static Future<void> fetchToken(String username, String password) async {
     final response = await http.post(
-      Uri.parse(url),
+      Uri.parse('$url/token/'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -36,7 +36,7 @@ class TokenStorage {
   // Get acces token by refresh token
   static Future<void> getaccessToken(String refresh) async {
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:8000/api/token/refresh/'),
+      Uri.parse('$url/token/refresh/'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -56,4 +56,6 @@ class TokenStorage {
       throw Exception('Failed to get access token');
     }
   }
+
+  
 }
