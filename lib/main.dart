@@ -1,9 +1,10 @@
 
 import 'dart:async'; 
-import 'package:fe_garbage_classification_app/start_screen/signup.dart';
+import 'package:fe_garbage_classification_app/blog_screen/home_blog.dart';
+import 'package:fe_garbage_classification_app/start_screen/network/token_storage.dart';
 import 'package:fe_garbage_classification_app/start_screen/welcome.dart';
 import 'package:flutter/material.dart'; 
-import 'package:fe_garbage_classification_app/start_screen/login.dart'; 
+import 'package:shared_preferences/shared_preferences.dart'; 
   
 void main() {
   runApp(const MyApp());
@@ -11,10 +12,20 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
+  
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+    Future<bool> _submitLogin() async {
+      final prefs = await SharedPreferences.getInstance();
+      String? refresh = prefs.getString('refresh_token');
+      try {
+        await TokenStorage.getaccessToken(refresh!);
+        return true;
+      } catch (e) {
+        return false;}
+    }
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
@@ -37,7 +48,26 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 79, 187, 90)),
         useMaterial3: true,
       ),
-      home: const welcum_(),
+      home: FutureBuilder<bool>(
+        future: _submitLogin(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // While waiting 
+            return Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            );
+          } else if (snapshot.hasError) {
+            // Handle error
+            return Scaffold(
+              body: Center(child: Text('Error occurred')),
+            );
+          } else if (snapshot.hasData && snapshot.data == true) {
+            return homeblog_();
+          } else {
+            return welcum_();
+          }
+        },
+      ),
     );
   }
 }

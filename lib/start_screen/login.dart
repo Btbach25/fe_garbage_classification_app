@@ -1,12 +1,14 @@
 
 import 'dart:ui';
-
+import 'package:fe_garbage_classification_app/blog_screen/home_blog.dart';
 import 'package:fe_garbage_classification_app/start_screen/change_pass.dart';
+import 'package:fe_garbage_classification_app/start_screen/network/google_sign_in.dart';
 import 'package:fe_garbage_classification_app/start_screen/signup.dart';
 import 'package:flutter/foundation.dart'; 
 import 'package:flutter/material.dart'; 
 import 'package:form_field_validator/form_field_validator.dart';
-import 'network/network_request.dart';
+import 'network/token_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 class Login_ extends StatefulWidget {
   const Login_({super.key});
 
@@ -20,6 +22,21 @@ class _Login_State extends State<Login_> {
   final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordHidden = true ;
 
+  Future<void> _handleGoogleSignIn() async {
+    try {
+      GoogleSignInAccount? googleUser = await GoogleSignInApi.login();
+      GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+      final accessToken = googleAuth.accessToken;
+      await GoogleSignInApi.loginWithGoogle(accessToken!);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homeblog_()  ));
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  Future<void> _signout() async {
+    await GoogleSignInApi.logout();
+  }
   @override
   void dispose() {
     _emailController.dispose();
@@ -27,11 +44,14 @@ class _Login_State extends State<Login_> {
     super.dispose();
   }
 
-  void _submitForm() {
+  Future<void> _submitLogin() async {
     final String username = _emailController.text;
     final String password = _passwordController.text;
-    
-    TokenStorage.fetchToken(username, password);
+    try {
+      await TokenStorage.fetchToken(username, password);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homeblog_()  ));
+    } catch (e) {
+      print('Failed to fetch token: $e');}
   }
   @override
   Widget build(BuildContext context) {
@@ -210,7 +230,7 @@ class _Login_State extends State<Login_> {
                                   backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 79, 187, 90)),
                                 ),
                                 child: Text( 'Login', style: TextStyle(color: Colors.white,  fontSize:22 ,  ),) ,                                                              
-                                onPressed: _submitForm,
+                                onPressed: _submitLogin,
                               ),
                             ),
                             width: MediaQuery.of(context).size.width, 
@@ -246,7 +266,7 @@ class _Login_State extends State<Login_> {
                                 SizedBox(
                                   width: double.infinity,
                                   child: OutlinedButton.icon(
-                                    onPressed:(){},
+                                    onPressed:_handleGoogleSignIn,
                                     icon: Image.asset('assets/images/gg_icon.png', width: 20, height: 20 , ),
                                     label: const Text('Sign in with Google. '),
                                   ),
