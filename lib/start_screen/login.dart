@@ -22,7 +22,7 @@ class _Login_State extends State<Login_> {
   final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordHidden = true ;
 
-  Future<void> _handleGoogleSignIn() async {
+  Future<void> _handleGoogleSignIn() async {  //Sign in by google
     try {
       GoogleSignInAccount? googleUser = await GoogleSignInApi.login();
       GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
