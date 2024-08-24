@@ -15,14 +15,19 @@ class Login_ extends StatefulWidget {
   @override
   State<Login_> createState() => _Login_State();
 }
-
+String? errorMessage = null;
 class _Login_State extends State<Login_> {
   final _formkey = GlobalKey<FormState>(); 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordHidden = true ;
 
-  Future<void> _handleGoogleSignIn() async {  //Sign in by google
+   void initState() {
+    super.initState();
+    errorMessage = null; // Khởi tạo lại errorMessage khi màn hình được hiển thị
+  }
+  Future<void> _handleGoogleSignIn() async {
+
     try {
       GoogleSignInAccount? googleUser = await GoogleSignInApi.login();
       GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
@@ -51,10 +56,17 @@ class _Login_State extends State<Login_> {
       await TokenStorage.fetchToken(username, password);
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homeblog_()  ));
     } catch (e) {
-      print('Failed to fetch token: $e');}
+      print('Failed to fetch token: $e');
+      setState(() {
+        errorMessage = 'Something wrong!';
+      });
+      }
   }
   @override
   Widget build(BuildContext context) {
+    
+    //errorMessage ;
+
     return Scaffold(
         backgroundColor: Colors.white,
          appBar: AppBar(
@@ -130,11 +142,11 @@ class _Login_State extends State<Login_> {
                               prefixIcon: Icon(Icons.email, color: Color.fromARGB(255, 79, 187, 90),), 
                               errorStyle: TextStyle(fontSize: 12.0), 
                               
-                              /*border: OutlineInputBorder(
+                              border: OutlineInputBorder(
                                 borderSide: BorderSide(color: Color.fromARGB(255, 79, 187, 90)),
                                 borderRadius: BorderRadius.all(Radius.circular(15.0)), 
                               ),
-                              */
+                              
                             ),
                             
                           ),
@@ -172,7 +184,10 @@ class _Login_State extends State<Login_> {
                                   },
                                 ),
                                 errorStyle: TextStyle(fontSize: 12.0), 
-                                 
+                                 border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Color.fromARGB(255, 79, 187, 90)),
+                                borderRadius: BorderRadius.all(Radius.circular(15.0)), 
+                              ),
                               ), 
                             ), 
                         ),
@@ -237,6 +252,15 @@ class _Login_State extends State<Login_> {
                             height: 50, 
                           ),
                         ),
+                        // Hiển thị thông báo lỗi nếu có
+                        if (errorMessage != null)
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              errorMessage!,
+                              style: TextStyle(color: Colors.red),
+                                                    ),
+                          ),
                         Center(
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(0, 0, 0, 0) ,
