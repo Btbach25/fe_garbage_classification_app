@@ -2,11 +2,13 @@ import 'package:fe_garbage_classification_app/blog_screen/add_blog.dart';
 import 'package:fe_garbage_classification_app/blog_screen/post_widget.dart';
 import 'package:fe_garbage_classification_app/blog_screen/postwidget.dart';
 import 'package:fe_garbage_classification_app/start_screen/network/google_sign_in.dart';
+import 'package:fe_garbage_classification_app/start_screen/welcome.dart';
 import 'package:flutter/foundation.dart'; 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';  
+import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';  
 class homeblog_ extends StatefulWidget {
   const homeblog_({super.key});
 
@@ -31,6 +33,16 @@ class _homeblog_State extends State<homeblog_> {
       return Future.value(false);
     }
     return Future.value(true);
+  }
+  Future<void> _signout() async {
+    final prefs = await     SharedPreferences.getInstance();
+
+    //Delete token
+    await prefs.remove('access_token');
+    await prefs.remove('refresh_token');
+
+    GoogleSignInApi.logout();
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => welcum_()  )); 
   }
   @override
   Widget build(BuildContext context) {
@@ -68,7 +80,7 @@ class _homeblog_State extends State<homeblog_> {
             actions: [
               IconButton(
               icon: Icon(Icons.person),
-              onPressed:(){},
+              onPressed:(){_signout();},
             ),
             ]
           ) ,
@@ -131,6 +143,19 @@ class __newsfeedState extends State<_newsfeed> {
       color: Colors.white,
       child: ListView(
         children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: OutlinedButton(
+            style: OutlinedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15), 
+                        ),
+                      ),
+            onPressed:(){
+            },
+             child: aPostWidget(profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/ ', username: 'Bachbui', timestamp: '12/3/2024', title: 'Nothing there!', content: 'Text'),
+          ),
+        ),
         aPostWidget(profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/ ', username: 'Bachbui', timestamp: '12/3/2024', title: 'Nothing there!', content: 'Text'),
         
         ],

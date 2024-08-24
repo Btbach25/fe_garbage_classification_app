@@ -101,7 +101,10 @@ class _Change_pass_State extends State<Change_pass_> {
                                   },
                                 ),
                               errorStyle: TextStyle(fontSize: 12.0), 
-                              
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Color.fromARGB(255, 79, 187, 90)),
+                                borderRadius: BorderRadius.all(Radius.circular(15.0)), 
+                              ),
                             ),
                             
                           ),
@@ -120,7 +123,10 @@ class _Change_pass_State extends State<Change_pass_> {
                               labelText:  'Security Code' ,
                               prefixIcon: Icon(Icons.security, color: Color.fromARGB(255, 79, 187, 90),), 
                               errorStyle: TextStyle(fontSize: 12.0), 
-                              
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Color.fromARGB(255, 79, 187, 90)),
+                                borderRadius: BorderRadius.all(Radius.circular(15.0)), 
+                              ),
                             ),
                             
                           ),
@@ -157,7 +163,10 @@ class _Change_pass_State extends State<Change_pass_> {
                                   },
                                 ),
                                 errorStyle: TextStyle(fontSize: 12.0), 
-                                
+                                border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Color.fromARGB(255, 79, 187, 90)),
+                                borderRadius: BorderRadius.all(Radius.circular(15.0)), 
+                              ),
                               ), 
                             ), 
                         ),
