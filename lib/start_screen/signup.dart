@@ -1,9 +1,12 @@
 
+import 'package:fe_garbage_classification_app/blog_screen/home_blog.dart';
+import 'package:fe_garbage_classification_app/start_screen/network/google_sign_in.dart';
 import 'package:flutter/foundation.dart'; 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart'; 
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:fe_garbage_classification_app/start_screen/login.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Signup_ extends StatefulWidget {
   const Signup_({super.key});
@@ -15,6 +18,18 @@ class Signup_ extends StatefulWidget {
 class _Signup_State extends State<Signup_> {
   final _formkey = GlobalKey<FormState>(); 
   bool _isPasswordHidden = true ;
+
+  Future<void> _handleGoogleSignIn() async {
+    try {
+      GoogleSignInAccount? googleUser = await GoogleSignInApi.login();
+      GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+      final accessToken = googleAuth.accessToken;
+      await GoogleSignInApi.loginWithGoogle(accessToken!);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homeblog_()  ));
+    } catch (error) {
+      print(error);
+    }
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -243,7 +258,7 @@ class _Signup_State extends State<Signup_> {
                                 SizedBox(
                                   width: double.infinity,
                                   child: OutlinedButton.icon(
-                                    onPressed:(){},
+                                    onPressed:_handleGoogleSignIn,
                                     icon: Image.asset('assets/images/gg_icon.png', width: 20, height: 20 , ),
                                     label: const Text('Sign in with Google. '),
                                   ),

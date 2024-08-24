@@ -21,11 +21,13 @@ class _Login_State extends State<Login_> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordHidden = true ;
+
    void initState() {
     super.initState();
     errorMessage = null; // Khởi tạo lại errorMessage khi màn hình được hiển thị
   }
   Future<void> _handleGoogleSignIn() async {
+
     try {
       GoogleSignInAccount? googleUser = await GoogleSignInApi.login();
       GoogleSignInAuthentication googleAuth = await googleUser!.authentication;

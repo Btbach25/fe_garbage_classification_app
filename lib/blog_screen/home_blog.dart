@@ -1,4 +1,5 @@
 import 'package:fe_garbage_classification_app/blog_screen/add_blog.dart';
+import 'package:fe_garbage_classification_app/blog_screen/api/blog_api.dart';
 import 'package:fe_garbage_classification_app/blog_screen/post_widget.dart';
 import 'package:fe_garbage_classification_app/blog_screen/postwidget.dart';
 import 'package:fe_garbage_classification_app/start_screen/network/google_sign_in.dart';
@@ -35,8 +36,8 @@ class _homeblog_State extends State<homeblog_> {
     return Future.value(true);
   }
   Future<void> _signout() async {
-    final prefs = await     SharedPreferences.getInstance();
 
+    final prefs = await SharedPreferences.getInstance();
     //Delete token
     await prefs.remove('access_token');
     await prefs.remove('refresh_token');
@@ -80,7 +81,8 @@ class _homeblog_State extends State<homeblog_> {
             actions: [
               IconButton(
               icon: Icon(Icons.person),
-              onPressed:(){_signout();},
+                
+              onPressed:Blog_api.getPosts,
             ),
             ]
           ) ,
