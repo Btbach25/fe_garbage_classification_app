@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
           } else if (snapshot.hasData && snapshot.data == true) {
             return homeblog_();
           } else {
-            return welcum_();
+            return welcum_(); 
           }
         },
       ),

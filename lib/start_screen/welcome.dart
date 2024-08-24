@@ -1,3 +1,5 @@
+import 'package:fe_garbage_classification_app/blog_screen/home_blog.dart';
+import 'package:fe_garbage_classification_app/start_screen/getusername.dart';
 import 'package:fe_garbage_classification_app/start_screen/network/google_sign_in.dart';
 import 'package:flutter/foundation.dart'; 
 import 'package:flutter/material.dart';
@@ -106,7 +108,10 @@ class _welcum_State extends State<welcum_> {
                                     onPressed:(){
                                       
                                       try{
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => Login_()  ));
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => 
+                                        Login_()  
+                                        //Getusername(),
+                                      ));
                                       }catch(e){
                                         print(e);
                                       }

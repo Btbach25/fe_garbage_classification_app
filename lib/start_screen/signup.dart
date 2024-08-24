@@ -100,7 +100,10 @@ class _Signup_State extends State<Signup_> {
                               //filled: true ,
                               //fillColor: Color.fromARGB(0, 108, 79, 187),
                               errorStyle: TextStyle(fontSize: 12.0), 
-                             
+                             border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Color.fromARGB(255, 79, 187, 90)),
+                                borderRadius: BorderRadius.all(Radius.circular(15.0)), 
+                              ),
                             ),
                             
                           ),
@@ -137,7 +140,10 @@ class _Signup_State extends State<Signup_> {
                                   },
                                 ),
                                 errorStyle: TextStyle(fontSize: 12.0), 
-                                
+                                border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Color.fromARGB(255, 79, 187, 90)),
+                                borderRadius: BorderRadius.all(Radius.circular(15.0)), 
+                              ),
                               ), 
                             ), 
                         ),
@@ -155,7 +161,10 @@ class _Signup_State extends State<Signup_> {
                               labelText:  'Your name' ,
                               prefixIcon: Icon(Icons.person , color: Color.fromARGB(255, 79, 187, 90), ), 
                               errorStyle: TextStyle(fontSize: 12.0), 
-                              
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Color.fromARGB(255, 79, 187, 90)),
+                                borderRadius: BorderRadius.all(Radius.circular(15.0)), 
+                              ),
                             ),
                             
                           ),
