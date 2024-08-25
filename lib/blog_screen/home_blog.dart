@@ -1,6 +1,5 @@
 import 'package:fe_garbage_classification_app/blog_screen/add_blog.dart';
 import 'package:fe_garbage_classification_app/blog_screen/api/blog_api.dart';
-import 'package:fe_garbage_classification_app/blog_screen/post_widget.dart';
 import 'package:fe_garbage_classification_app/blog_screen/postwidget.dart';
 import 'package:fe_garbage_classification_app/start_screen/network/google_sign_in.dart';
 import 'package:fe_garbage_classification_app/start_screen/welcome.dart';
@@ -120,16 +119,17 @@ class _homeblog_State extends State<homeblog_> {
                   ),
             ],
             ),
-        
+          floatingActionButton: FloatingActionButton(
+            onPressed:(){_signout();},
+            child: Icon(Icons.home,),
+          ),
+
         );
       }
     )
     );
   }
 }
-
-
-
 
 class _newsfeed extends StatefulWidget {
   const _newsfeed({super.key});
