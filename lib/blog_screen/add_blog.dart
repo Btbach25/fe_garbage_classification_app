@@ -80,7 +80,9 @@ class _AddBlogState extends State<AddBlog> {
                     ),
                     onPressed: (){
                     },
-                    child: Column(children:[
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children:[
                       Icon(Icons.add_a_photo),
                       Text('Add picture'),
                   

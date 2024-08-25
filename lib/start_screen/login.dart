@@ -200,13 +200,11 @@ class _Login_State extends State<Login_> {
                                 child: TextButton(
                                   child: Text( 'Forgot Password', style: TextStyle(color: Color.fromARGB(255, 79, 187, 90) ),  ),
                                   onPressed:(){
-                                    
                                     try{
                                       Navigator.push(context, MaterialPageRoute(builder: (context) => Change_pass_()  ));
                                     }catch(e){
                                       print(e);
                                     }
-                                 
                                   },
                                 ),
                             ),
@@ -219,13 +217,11 @@ class _Login_State extends State<Login_> {
                                 child: TextButton(
                                   child: Text( 'new user ?', style: TextStyle(color: Color.fromARGB(255, 79, 187, 90)  ),  ),
                                   onPressed:(){
-                                    
                                     try{
                                       Navigator.push(context, MaterialPageRoute(builder: (context) => Signup_()  ));
                                     }catch(e){
                                       print(e);
                                     }
-                                 
                                   },
                                 ), 
                                 
