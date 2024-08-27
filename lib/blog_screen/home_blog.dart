@@ -82,7 +82,7 @@ class _homeblog_State extends State<homeblog_> {
               IconButton(
               icon: Icon(Icons.person),
                 
-              onPressed:Blog_api.getPosts,
+              onPressed:_signout,
             ),
             ]
           ) ,
