@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:fe_garbage_classification_app/blog_screen/add_blog.dart';
 import 'package:fe_garbage_classification_app/blog_screen/api/blog_api.dart';
 import 'package:fe_garbage_classification_app/blog_screen/models/Post.dart';
@@ -59,7 +61,8 @@ class _homeblog_State extends State<homeblog_> {
     default:
     throw UnimplementedError('no widget for $selectedIndex');
     }
-    return PopScope( //Pressing back twice will exit the application
+    return PopScope( 
+      //Pressing back twice will exit the application
       canPop: false,
       onPopInvoked: (didPop) async {
         if (didPop) {
@@ -75,8 +78,9 @@ class _homeblog_State extends State<homeblog_> {
      LayoutBuilder(
       builder: (context,constraints) {
         return Scaffold(
+          backgroundColor: Color(0xFFF4EDED),
           appBar: AppBar(
-        
+            backgroundColor:Color(0xFFF4EDED) ,
             title: Text("What's news"),
             centerTitle: true,
             actions: [
@@ -92,6 +96,7 @@ class _homeblog_State extends State<homeblog_> {
             children: [
               SafeArea(
                 child: NavigationBar(
+                  backgroundColor: Color(0xFFF4EDED),
                   height: 70,
                   destinations: [
                       //Text('Home'),
@@ -164,10 +169,10 @@ class __newsfeedState extends State<_newsfeed> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      color: Colors.white,
+     color: Colors.white,
       child: isLoading?const Center(
-        child: SizedBox(
-        width: 30, // Chiều rộng mong muốn
+        child: SizedBox(        
+          width: 30, // Chiều rộng mong muốn
           height: 30, // Chiều cao mong muốn
           child: CircularProgressIndicator(
             strokeWidth: 4.0, // Độ dày của vòng tròn tải
@@ -175,6 +180,7 @@ class __newsfeedState extends State<_newsfeed> {
       )):
       ListView(
         children: mypost.map((e){
+
           return aPostWidget(profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/ ', 
               username: e.authorName , timestamp: e.createdAt, title: e.title, content: e.content, canPress: true, );
         }).toList(),

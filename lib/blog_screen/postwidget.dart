@@ -144,7 +144,7 @@ class _aPostWidgetState extends State<aPostWidget> {
       return Text(content) ; // Replace with your video player implementation
     } else {
       // Default to text
-      return Text(content);
+      return Text(content,style: const TextStyle(color: Colors.black),);
     }
   }
 }
