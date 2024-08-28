@@ -155,7 +155,7 @@ class __newsfeedState extends State<_newsfeed> {
                       ),
             onPressed:(){
             },
-             child: aPostWidget(profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/ ', username: 'Bachbui', timestamp: '12/3/2024', title: 'Nothing there!', content: 'Text'),
+             child: aPostWidget(profileImageUrl: '', username: 'Bachbui', timestamp: '12/3/2024', title: 'Nothing there!', content: 'Text' ),
           ),
         ),
         aPostWidget(profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/ ', username: 'Bachbui', timestamp: '12/3/2024', title: 'Nothing there!', content: 'Text'),

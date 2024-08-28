@@ -66,7 +66,6 @@ class _AddBlogState extends State<AddBlog> {
                   ),
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.all(15),
                 child: Container(
