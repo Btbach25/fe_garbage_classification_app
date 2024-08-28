@@ -1,5 +1,6 @@
 import 'package:fe_garbage_classification_app/blog_screen/add_blog.dart';
 import 'package:fe_garbage_classification_app/blog_screen/api/blog_api.dart';
+import 'package:fe_garbage_classification_app/blog_screen/models/Post.dart';
 import 'package:fe_garbage_classification_app/blog_screen/postwidget.dart';
 import 'package:fe_garbage_classification_app/start_screen/network/google_sign_in.dart';
 import 'package:fe_garbage_classification_app/start_screen/welcome.dart';
@@ -18,9 +19,17 @@ class homeblog_ extends StatefulWidget {
 
 class _homeblog_State extends State<homeblog_> {
 
-   var selectedIndex = 0;  
-
+  var selectedIndex = 0;  
   DateTime? lastPressed;
+
+  List<Post> mypost = [];
+
+  @override
+  void initState() {
+    
+    mypost = Blog_api.getPosts() as List<Post>;
+    super.initState();
+  }
 
   //Method handle pop up
   Future<bool> _onWillPop() async { 
