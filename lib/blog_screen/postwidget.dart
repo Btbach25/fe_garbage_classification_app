@@ -2,14 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter/rendering.dart';
-import 'package:provider/provider.dart';
 
 
 
 class aPostWidget extends StatefulWidget {
-  final String 
- profileImageUrl;
+  final String profileImageUrl;
   final String username;
   final String timestamp;
   final String title;
@@ -32,10 +29,10 @@ class aPostWidget extends StatefulWidget {
 }
 
 class _aPostWidgetState extends State<aPostWidget> {
+  bool isLiked = true ;
   @override
-  Widget build(BuildContext context) {
-    bool _isLiked = false;
 
+  Widget build(BuildContext context) {
     return Container(
       child: Padding(
         padding: const EdgeInsets.all(16.0), // Adjust padding as needed
@@ -75,14 +72,20 @@ class _aPostWidgetState extends State<aPostWidget> {
               children: [
                 Text('See more', style: const TextStyle(fontSize: 12.0, color: Colors.blue)),
                 IconButton(
-                  icon:Image.asset('assets/icon/favorite.png',
+                  icon:isLiked ?Image.asset('assets/icon/favorite.png',
                     width: 20, 
                     height: 20,
+                    color: Colors.black,
+                  ) : Image.asset('assets/icon/filled_heart.png',
+                    width: 20, 
+                    height: 20,
+
                   ),      
                               
                   onPressed: () {
                     setState(() {
-                     _isLiked = !_isLiked;
+                     isLiked = !(isLiked);
+                     print('isLiked: $isLiked');
                     });
                   },
                 ),
@@ -90,7 +93,8 @@ class _aPostWidgetState extends State<aPostWidget> {
                   onPressed:(){}, 
                   icon: Image.asset('assets/icon/comment.png',
                     width: 20, 
-                    height: 20, 
+                    height: 20,
+                    color: Colors.black, 
                   ),
                   
                 ),
