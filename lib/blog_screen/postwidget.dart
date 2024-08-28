@@ -78,7 +78,7 @@ class _aPostWidgetState extends State<aPostWidget> {
                   icon:Image.asset('assets/icon/favorite.png',
                     width: 20, 
                     height: 20,
-                  )),      
+                  ),      
                               
                   onPressed: () {
                     setState(() {
