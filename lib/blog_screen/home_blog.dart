@@ -22,14 +22,7 @@ class _homeblog_State extends State<homeblog_> {
   var selectedIndex = 0;  
   DateTime? lastPressed;
 
-  List<Post> mypost = [];
-
-  @override
-  void initState() {
-    
-    mypost = Blog_api.getPosts() as List<Post>;
-    super.initState();
-  }
+  
 
   //Method handle pop up
   Future<bool> _onWillPop() async { 
@@ -141,35 +134,78 @@ class _homeblog_State extends State<homeblog_> {
 }
 
 class _newsfeed extends StatefulWidget {
-  const _newsfeed({super.key});
-
   @override
   State<_newsfeed> createState() => __newsfeedState();
+  const _newsfeed({super.key});
 }
 
 class __newsfeedState extends State<_newsfeed> {
+  List<Post> mypost = [];
+  bool isLoading = true;
+  Future<void> fetchAndAssignPosts() async {
+    try {
+      List<Post> newPosts = await Blog_api.getPosts();
+      mypost = newPosts;
+      print(mypost);
+      setState(() {
+        isLoading = false;
+      });
+    } catch (e) {
+      print('Error fetching posts: $e');
+    }
+    
+  }
+  @override
+  void initState() {
+    fetchAndAssignPosts();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
       color: Colors.white,
-      child: ListView(
-        children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
+      child: isLoading?const Center(
+        child: SizedBox(
+        width: 30, // Chiều rộng mong muốn
+          height: 30, // Chiều cao mong muốn
+          child: CircularProgressIndicator(
+            strokeWidth: 4.0, // Độ dày của vòng tròn tải
+          ),
+      )):
+      ListView(
+        children: mypost.map((e){
+          return Padding(
+            padding: const EdgeInsets.only(top:10.0),
           child: OutlinedButton(
             style: OutlinedButton.styleFrom(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15), 
+                          borderRadius: BorderRadius.circular(10), 
                         ),
                       ),
             onPressed:(){
             },
-             child: aPostWidget(profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/ ', username: 'Bachbui', timestamp: '12/3/2024', title: 'Tiếng Việt', content: 'Text' ),
-          ),
-        ),
-        aPostWidget(profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/ ', username: 'Bachbui', timestamp: '12/3/2024', title: 'Nothing there!', content: 'Text'),
+            child: aPostWidget(profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/ ', 
+          username: e.authorName , timestamp: e.createdAt, title: e.title, content: e.content),
+          ));
+        }).toList(),
+        // [
+        // Padding(
+          // padding: const EdgeInsets.all(8.0),
+          // child: OutlinedButton(
+          //   style: OutlinedButton.styleFrom(
+          //               shape: RoundedRectangleBorder(
+          //                 borderRadius: BorderRadius.circular(15), 
+          //               ),
+          //             ),
+          //   onPressed:(){
+          //   },
+        //      child: aPostWidget(profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/ ', username: 'Bachbui', timestamp: '12/3/2024', title: 'Tiếng Việt', content: 'Text' ),
+        //   ),
+        // ),
+        // aPostWidget(profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/ ', username: 'Bachbui', timestamp: '12/3/2024', title: 'Nothing there!', content: 'Text'),
         
-        ],
+        // ],
       ),
     );
   }
