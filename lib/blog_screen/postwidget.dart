@@ -6,11 +6,11 @@ import 'package:flutter/widgets.dart';
 
 
 class aPostWidget extends StatefulWidget {
-  final String profileImageUrl;
-  final String username;
-  final String timestamp;
-  final String title;
-  final String content; // Can be text, image path, or video URL
+  final String? profileImageUrl;
+  final String? username;
+  final String? timestamp;
+  final String? title;
+  final String? content; // Can be text, image path, or video URL
   final List<Widget> actions; // Optional list of action buttons (like, comment, share)
 
   const aPostWidget({
@@ -43,34 +43,34 @@ class _aPostWidgetState extends State<aPostWidget> {
             Row(
               children: [
                 CircleAvatar(
-                  backgroundImage: NetworkImage(widget.profileImageUrl),
+                  backgroundImage: NetworkImage(widget.profileImageUrl!),
                   radius: 24.0, // Adjust avatar size
                 ),
                 const SizedBox(width: 10.0),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(widget.username, style: const TextStyle(fontWeight: FontWeight.bold)),
+                    Text(widget.username!, style: const TextStyle(fontWeight: FontWeight.bold)),
 
-                    Text(widget.timestamp, style: const TextStyle(fontSize: 12.0, color: Colors.grey)),
+                    Text(widget.timestamp!, style: const TextStyle(fontSize: 12.0, color: Colors.grey)),
                   ],
                 ),
               ],
             ),
             const SizedBox(height: 10.0),
-
+              Text(widget.title!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
             // Content section
-            _buildContent(widget.content), // Dynamically handle different content types
+           
 
             const SizedBox(height: 10.0),
-
+              _buildContent(widget.content!), // Dynamically handle different content types
             // Post details (title, optional actions)
-            Text(widget.title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+            
             const SizedBox(height: 8.0),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text('See more', style: const TextStyle(fontSize: 12.0, color: Colors.blue)),
+                
                 IconButton(
                   icon:isLiked ?Image.asset('assets/icon/favorite.png',
                     width: 20, 
@@ -88,6 +88,9 @@ class _aPostWidgetState extends State<aPostWidget> {
                      print('isLiked: $isLiked');
                     });
                   },
+                ),
+                SizedBox(
+                  width: 5,
                 ),
                 IconButton(
                   onPressed:(){}, 
