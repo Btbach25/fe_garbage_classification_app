@@ -1,9 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-class aPostWidget extends StatelessWidget {
-  final String 
- profileImageUrl;
+
+
+class aPostWidget extends StatefulWidget {
+  final String profileImageUrl;
   final String username;
   final String timestamp;
   final String title;
@@ -17,10 +20,18 @@ class aPostWidget extends StatelessWidget {
     required this.timestamp,
     required this.title,
     required this.content,
-    this.actions = const [],
+    this.actions = const [
+    ],
   });
 
   @override
+  State<aPostWidget> createState() => _aPostWidgetState();
+}
+
+class _aPostWidgetState extends State<aPostWidget> {
+  bool isLiked = true ;
+  @override
+
   Widget build(BuildContext context) {
     return Container(
       child: Padding(
@@ -32,16 +43,16 @@ class aPostWidget extends StatelessWidget {
             Row(
               children: [
                 CircleAvatar(
-                  backgroundImage: NetworkImage(profileImageUrl),
+                  backgroundImage: NetworkImage(widget.profileImageUrl),
                   radius: 24.0, // Adjust avatar size
                 ),
                 const SizedBox(width: 10.0),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(username, style: const TextStyle(fontWeight: FontWeight.bold)),
+                    Text(widget.username, style: const TextStyle(fontWeight: FontWeight.bold)),
 
-                    Text(timestamp, style: const TextStyle(fontSize: 12.0, color: Colors.grey)),
+                    Text(widget.timestamp, style: const TextStyle(fontSize: 12.0, color: Colors.grey)),
                   ],
                 ),
               ],
@@ -49,18 +60,44 @@ class aPostWidget extends StatelessWidget {
             const SizedBox(height: 10.0),
 
             // Content section
-            _buildContent(content), // Dynamically handle different content types
+            _buildContent(widget.content), // Dynamically handle different content types
 
             const SizedBox(height: 10.0),
 
             // Post details (title, optional actions)
-            Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+            Text(widget.title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
             const SizedBox(height: 8.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('See more', style: const TextStyle(fontSize: 12.0, color: Colors.blue)),
-                if (actions.isNotEmpty) Row(children: actions) // Display actions if provided
+                IconButton(
+                  icon:isLiked ?Image.asset('assets/icon/favorite.png',
+                    width: 20, 
+                    height: 20,
+                    color: Colors.black,
+                  ) : Image.asset('assets/icon/filled_heart.png',
+                    width: 20, 
+                    height: 20,
+
+                  ),      
+                              
+                  onPressed: () {
+                    setState(() {
+                     isLiked = !(isLiked);
+                     print('isLiked: $isLiked');
+                    });
+                  },
+                ),
+                IconButton(
+                  onPressed:(){}, 
+                  icon: Image.asset('assets/icon/comment.png',
+                    width: 20, 
+                    height: 20,
+                    color: Colors.black, 
+                  ),
+                  
+                ),
               ],
             ),
           ],

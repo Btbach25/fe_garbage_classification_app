@@ -22,6 +22,7 @@ class Blog_api{
 
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
+      print(data);
       List<Post> posts = data.map((json) => Post.fromJson(json)).toList();
       posts.forEach((post){
         print(post.author);
