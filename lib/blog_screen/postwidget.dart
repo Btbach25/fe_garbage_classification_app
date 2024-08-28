@@ -1,3 +1,4 @@
+import 'package:fe_garbage_classification_app/blog_screen/blog_expand.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ class aPostWidget extends StatefulWidget {
   final String? timestamp;
   final String? title;
   final String? content; // Can be text, image path, or video URL
-  final List<Widget> actions; // Optional list of action buttons (like, comment, share)
+  final bool canPress;
 
   const aPostWidget({
     super.key,
@@ -20,8 +21,7 @@ class aPostWidget extends StatefulWidget {
     required this.timestamp,
     required this.title,
     required this.content,
-    this.actions = const [
-    ],
+    required this.canPress,
   });
 
   @override
@@ -35,75 +35,101 @@ class _aPostWidgetState extends State<aPostWidget> {
   Widget build(BuildContext context) {
     return Container(
       child: Padding(
-        padding: const EdgeInsets.all(16.0), // Adjust padding as needed
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Profile section
-            Row(
-              children: [
-                CircleAvatar(
-                  backgroundImage: NetworkImage(widget.profileImageUrl!),
-                  radius: 24.0, // Adjust avatar size
-                ),
-                const SizedBox(width: 10.0),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(widget.username!, style: const TextStyle(fontWeight: FontWeight.bold)),
+        padding: const EdgeInsets.all(0), // Adjust padding as needed
 
-                    Text(widget.timestamp!, style: const TextStyle(fontSize: 12.0, color: Colors.grey)),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 10.0),
-              Text(widget.title!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
-            // Content section
-           
+        child: Padding(
+          padding: const EdgeInsets.only(top: 10.0),
 
-            const SizedBox(height: 10.0),
-              _buildContent(widget.content!), // Dynamically handle different content types
-            // Post details (title, optional actions)
-            
-            const SizedBox(height: 8.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                
-                IconButton(
-                  icon:isLiked ?Image.asset('assets/icon/favorite.png',
-                    width: 20, 
-                    height: 20,
-                    color: Colors.black,
-                  ) : Image.asset('assets/icon/filled_heart.png',
-                    width: 20, 
-                    height: 20,
-
-                  ),      
-                              
-                  onPressed: () {
-                    setState(() {
-                     isLiked = !(isLiked);
-                     print('isLiked: $isLiked');
-                    });
-                  },
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                IconButton(
-                  onPressed:(){}, 
-                  icon: Image.asset('assets/icon/comment.png',
-                    width: 20, 
-                    height: 20,
-                    color: Colors.black, 
+          child: OutlinedButton(
+            style: OutlinedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10), 
+                        ),
+                      ),
+              onPressed:(){
+              },
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Profile section
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundImage: NetworkImage(widget.profileImageUrl!),
+                        radius: 24.0, // Adjust avatar size
+                      ),
+                      const SizedBox(width: 10.0),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(widget.username!, style: const TextStyle(fontWeight: FontWeight.bold)),
+              
+                          Text(widget.timestamp!, style: const TextStyle(fontSize: 12.0, color: Colors.grey)),
+                        ],
+                      ),
+                    ],
                   ),
+                  const SizedBox(height: 10.0),
+                    Text(widget.title!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+                  // Content section
+                 
+              
+                  const SizedBox(height: 10.0),
+                    _buildContent(widget.content!), // Dynamically handle different content types
+                  // Post details (title, optional actions)
                   
-                ),
-              ],
+                  const SizedBox(height: 8.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      
+                      IconButton(
+                        icon:isLiked ?Image.asset('assets/icon/favorite.png',
+                          width: 20, 
+                          height: 20,
+                          color: Colors.black,
+                        ) : Image.asset('assets/icon/filled_heart.png',
+                          width: 20, 
+                          height: 20,
+              
+                        ),      
+                                    
+                        onPressed: () {
+                          setState(() {
+                           isLiked = !(isLiked);
+                           print('isLiked: $isLiked');
+                          });
+                        },
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      IconButton(
+                        onPressed:(){
+                          if(widget.canPress){
+                          try{
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => BlogExpand(
+                              this_widget: widget ,)  ));
+                          }catch(e){
+                            print(e);
+                          }
+                          }
+                        }, 
+                        icon: Image.asset('assets/icon/comment.png',
+                          width: 20, 
+                          height: 20,
+                          color: Colors.black, 
+                        ),
+                        
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ],
+          ),
         ),
       ),
     );

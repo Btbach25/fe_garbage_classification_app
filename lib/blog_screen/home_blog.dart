@@ -175,19 +175,8 @@ class __newsfeedState extends State<_newsfeed> {
       )):
       ListView(
         children: mypost.map((e){
-          return Padding(
-            padding: const EdgeInsets.only(top:10.0),
-          child: OutlinedButton(
-            style: OutlinedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10), 
-                        ),
-                      ),
-            onPressed:(){
-            },
-            child: aPostWidget(profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/ ', 
-          username: e.authorName , timestamp: e.createdAt, title: e.title, content: e.content),
-          ));
+          return aPostWidget(profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/ ', 
+              username: e.authorName , timestamp: e.createdAt, title: e.title, content: e.content, canPress: true, );
         }).toList(),
         // [
         // Padding(
