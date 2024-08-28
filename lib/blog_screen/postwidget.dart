@@ -50,15 +50,15 @@ class _aPostWidgetState extends State<aPostWidget> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(widget.username!, style: const TextStyle(fontWeight: FontWeight.bold)),
+                    Text(widget.username!, style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.black)),
 
-                    Text(widget.timestamp!, style: const TextStyle(fontSize: 12.0, color: Colors.grey)),
+                    Text(widget.timestamp!, style: const TextStyle(fontSize: 12.0, color: Colors.black)),
                   ],
                 ),
               ],
             ),
             const SizedBox(height: 10.0),
-              Text(widget.title!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+              Text(widget.title!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.black)),
             // Content section
            
 
@@ -118,7 +118,7 @@ class _aPostWidgetState extends State<aPostWidget> {
       return Text(content) ; // Replace with your video player implementation
     } else {
       // Default to text
-      return Text(content);
+      return Text(content,style: const TextStyle(color: Colors.black),);
     }
   }
 }
