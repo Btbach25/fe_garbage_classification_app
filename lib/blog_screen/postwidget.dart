@@ -79,6 +79,7 @@ class _aPostWidgetState extends State<aPostWidget> {
                   ) : Image.asset('assets/icon/filled_heart.png',
                     width: 20, 
                     height: 20,
+
                   ),      
                               
                   onPressed: () {
