@@ -52,6 +52,52 @@ class Blog_api{
     }
   }
 
+  static Future<void> uploadPost(Post post) async {
+  final prefs = await SharedPreferences.getInstance();
+  String? access_token = prefs.getString('access_token');
+  String? refresh_token = prefs.getString('refresh_token');
+
+  String? content = post.content;
+  String? title = post.title;
+
+  var response = await http.post(
+    Uri.parse('$url/'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer $access_token',
+    },
+    body: json.encode({
+      'content': content,
+      'title': title,
+    }),
+  );
+
+  if (response.statusCode == 401) {
+    // Get access token by refresh token
+    await TokenStorage.getaccessToken(refresh_token!);
+
+    // Retry the request with the new access token
+    access_token = prefs.getString('access_token');
+
+    response = await http.post(
+      Uri.parse('$url/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $access_token',
+      },
+      body: json.encode({
+        'content': content,
+        'title': title,
+      }),
+    );
+
+    if (response.statusCode != 201) {
+      throw Exception('Failed to load posts');
+    }
+  } else if (response.statusCode != 201) {
+      throw Exception('Failed to load posts');
+  }
+  }
 
   static Future<List<Comment>> getComment(String id_post) async {
       final prefs = await SharedPreferences.getInstance();

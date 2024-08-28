@@ -1,3 +1,6 @@
+import 'package:fe_garbage_classification_app/blog_screen/api/blog_api.dart';
+import 'package:fe_garbage_classification_app/blog_screen/home_blog.dart';
+import 'package:fe_garbage_classification_app/blog_screen/models/Post.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -9,6 +12,30 @@ class AddBlog extends StatefulWidget {
 }
 
 class _AddBlogState extends State<AddBlog> {
+
+  final TextEditingController _titleEditingController = TextEditingController();
+  final TextEditingController _contentEditingController = TextEditingController();
+
+  @override
+  void dispose() {
+    _titleEditingController.dispose();
+    _contentEditingController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _handleAddBlog() async{
+    final String  title = _titleEditingController.text;
+    final String content = _contentEditingController.text;
+
+    Post post = new Post(title: title,content: content);
+    try{
+      await Blog_api.uploadPost(post);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homeblog_()  ));
+    } catch (e) {
+      print('Failed to post blog: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,6 +77,28 @@ class _AddBlogState extends State<AddBlog> {
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: TextFormField(
+                  controller: _titleEditingController,
+                  maxLines: 2,
+                  minLines: 1,
+                  //expands: true,
+                  validator: MultiValidator([
+                      RequiredValidator(errorText: 'Enter a description'),]),
+                  decoration: InputDecoration(
+                    hintText: 'Title',
+                     // Adjust the width as needed for your specific layout
+                    constraints: BoxConstraints(maxWidth: 500.0), // Adjust as needed
+                    border: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Color.fromARGB(255, 79, 187, 90)),
+                    borderRadius: BorderRadius.circular(15.0),
+                    ),
+                  ),
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: TextFormField(
+                  controller: _contentEditingController,
                   maxLines: 10,
                   minLines: 7,
                   //expands: true,
@@ -100,7 +149,7 @@ class _AddBlogState extends State<AddBlog> {
                         backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 79, 187, 90)),
                       ),
                     child: Text( 'Create!', style: TextStyle(color: Colors.white,  fontSize:22 ,  ),) ,                                                              
-                    onPressed: (){ },
+                    onPressed: _handleAddBlog,
                     ),
                             ),
                     width: MediaQuery.of(context).size.width, 
