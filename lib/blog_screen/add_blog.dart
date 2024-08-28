@@ -39,9 +39,9 @@ class _AddBlogState extends State<AddBlog> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFF4EDED),
       appBar: AppBar(
-        
-        
+        backgroundColor: Color(0xFFF4EDED),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -145,7 +145,7 @@ class _AddBlogState extends State<AddBlog> {
                   child: Center(
                     child: ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 79, 187, 90)),
+                        backgroundColor: WidgetStateProperty.all(Color.fromARGB(255, 79, 187, 90)),
                       ),
                     child: Text( 'Create!', style: TextStyle(color: Colors.white,  fontSize:22 ,  ),) ,                                                              
                     onPressed: _handleAddBlog,

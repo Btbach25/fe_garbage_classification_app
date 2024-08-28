@@ -35,7 +35,7 @@ class _aPostWidgetState extends State<aPostWidget> {
   Widget build(BuildContext context) {
     return Container(
       child: Padding(
-        padding: const EdgeInsets.all(16.0), // Adjust padding as needed
+        padding: const EdgeInsets.only(top: 16.0, bottom: 16.0 , left: 7.0,right: 7.0), // Adjust padding as needed
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
