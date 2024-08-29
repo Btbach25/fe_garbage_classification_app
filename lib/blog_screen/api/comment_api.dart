@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 class CommentApi{
   static const String url = "http://10.0.2.2:8000/blog/post";
 
-  static Future<List<Comment>> getComment(String id_post) async {
+  static Future<List<Comment>> getComment(int id_post) async {
       final prefs = await SharedPreferences.getInstance();
       String? access_token = prefs.getString('access_token');
       String? refresh_token = prefs.getString('refresh_token');
@@ -48,6 +48,49 @@ class CommentApi{
       }
     } else {
       throw Exception('Failed to load comments');
+    }
+  }
+
+  static Future<void> uploadComment(int id_post,Comment comment) async {
+    final prefs = await SharedPreferences.getInstance();
+    String? access_token = prefs.getString('access_token');
+    String? refresh_token = prefs.getString('refresh_token');
+    String? content =comment.content;
+
+    var response = await http.post(
+      Uri.parse('$url/$id_post/comments/'),
+      headers: <String,String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $access_token',
+      },
+      body: json.encode({
+        'content': content,
+      }),
+    );
+
+    if(response.statusCode == 401){
+      //Get access token by refresh token
+      await TokenStorage.getaccessToken(refresh_token!);
+      // Update access token
+      access_token = prefs.getString('refresh_token');
+
+      response = await http.post(
+        Uri.parse('$url/$id_post/comments/'),
+        headers: <String,String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $access_token',
+        },
+        body: json.encode({
+          'content': content,
+        }),
+      );
+
+      if(response.statusCode != 201){
+        throw Exception('Fail to upload comment');
+      }
+    }
+    else if(response.statusCode !=201){
+      throw Exception('Fail to upload comment');
     }
   }
 }

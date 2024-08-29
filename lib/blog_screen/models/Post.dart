@@ -25,10 +25,10 @@ class Post {
       this.comments});
 
   Post.fromJson(Map<String, dynamic> json) {
-    title = json['title'];
-    content = json['content'];
-    author = json['author'];
-    authorName = json['author_name'];
+    title = json['title'] as String;
+    content = json['content'] as String;
+    author = json['author'] ;
+    authorName = json['author_name'] as String;
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     react = json['react'];

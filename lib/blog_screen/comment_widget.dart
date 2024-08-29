@@ -30,7 +30,7 @@ class CommentWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'username',
+                      comment.authorName.toString(),
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text(comment.content??'#notthing there!'),

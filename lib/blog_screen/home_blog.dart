@@ -78,9 +78,9 @@ class _homeblog_State extends State<homeblog_> {
      LayoutBuilder(
       builder: (context,constraints) {
         return Scaffold(
-          backgroundColor: Color(0xFFF4EDED),
+          backgroundColor: Color.fromARGB(255, 255, 250, 250),
           appBar: AppBar(
-            backgroundColor:Color(0xFFF4EDED) ,
+            backgroundColor:Color.fromARGB(255, 255, 250, 250),
             title: Text("What's news"),
             centerTitle: true,
             actions: [
@@ -95,28 +95,49 @@ class _homeblog_State extends State<homeblog_> {
           body: Column(
             children: [
               SafeArea(
-                child: NavigationBar(
-                  backgroundColor: Color(0xFFF4EDED),
-                  height: 70,
-                  destinations: [
-                      //Text('Home'),
-                     NavigationDestination(
-                      icon: Icon(Icons.home, ), 
-                      label:  'Home',
-                      ),
-                      NavigationDestination(
-                      icon: Icon(Icons.person), 
-                      label: 'Your Post',
-                      ),
-                  ],
-                  selectedIndex: selectedIndex,
-                      onDestinationSelected: (value) {
-                        setState(() {
-                            selectedIndex = value;
+                child:
+                NavigationBarTheme(
+                   data: NavigationBarThemeData(
+                    indicatorColor: Colors.black,
+                    labelTextStyle: WidgetStateProperty.resolveWith<TextStyle?>(
+                        (Set<WidgetState> states) {
+                          if (states.contains(WidgetState.selected)) {
+                            return const TextStyle(
+                              color: Color(0xFF277114), 
+                              fontWeight: FontWeight.bold,
+                            );
                           }
-                        );
-                      },
-                  ),
+                          return const TextStyle(
+                            color: Colors.black, 
+                          );
+                        },
+                      ),
+                    ),
+                  child: NavigationBar(
+                    
+                    backgroundColor: Color.fromARGB(255, 255, 250, 250),
+                    height: 70,
+                    destinations: const [
+                        //Text('Home'),
+                       NavigationDestination(
+                        icon: Icon(Icons.home, ), 
+                          label:  'Home',
+                        ),
+                        NavigationDestination(
+                          icon: Icon(Icons.person), 
+                          label: 'Your Post',
+                        ),
+                    ],
+                    selectedIndex: selectedIndex,
+                        onDestinationSelected: (value) {
+                          setState(() {
+                              selectedIndex = value;
+                            }
+                          );
+                        },
+                        indicatorColor: const Color.fromARGB(121, 115, 180, 99),
+                    ),
+                ),
               ),
               Expanded(
                     child: Container(
@@ -149,9 +170,8 @@ class __newsfeedState extends State<_newsfeed> {
   bool isLoading = true;
   Future<void> fetchAndAssignPosts() async {
     try {
-      List<Post> newPosts = await Blog_api.getPosts();
+      List<Post> newPosts = await Blog_api.getPosts("");
       mypost = newPosts;
-      print(mypost);
       setState(() {
         isLoading = false;
       });
@@ -169,38 +189,20 @@ class __newsfeedState extends State<_newsfeed> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-     color: Colors.white,
+      color: Color.fromARGB(255, 145, 166, 143),
       child: isLoading?const Center(
         child: SizedBox(        
-          width: 30, // Chiều rộng mong muốn
-          height: 30, // Chiều cao mong muốn
+          width: 30, 
+          height: 30, 
           child: CircularProgressIndicator(
-            strokeWidth: 4.0, // Độ dày của vòng tròn tải
+            strokeWidth: 4.0, 
           ),
       )):
       ListView(
         children: mypost.map((e){
-
-          return aPostWidget(profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/ ', 
-              username: e.authorName , timestamp: e.createdAt, title: e.title, content: e.content, canPress: true, );
+          return aPostWidget(id_post: e.id,profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/ ', 
+                username: e.authorName , timestamp: e.createdAt, title: e.title, content: e.content, canPress: true,);
         }).toList(),
-        // [
-        // Padding(
-          // padding: const EdgeInsets.all(8.0),
-          // child: OutlinedButton(
-          //   style: OutlinedButton.styleFrom(
-          //               shape: RoundedRectangleBorder(
-          //                 borderRadius: BorderRadius.circular(15), 
-          //               ),
-          //             ),
-          //   onPressed:(){
-          //   },
-        //      child: aPostWidget(profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/ ', username: 'Bachbui', timestamp: '12/3/2024', title: 'Tiếng Việt', content: 'Text' ),
-        //   ),
-        // ),
-        // aPostWidget(profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/ ', username: 'Bachbui', timestamp: '12/3/2024', title: 'Nothing there!', content: 'Text'),
-        
-        // ],
       ),
     );
   }
@@ -215,32 +217,72 @@ class _myBlogs extends StatefulWidget {
 }
 
 class __myBlogsState extends State<_myBlogs> {
+  List<Post> mypost = [];
+  bool isLoading = true;
+  Future<void> fetchAndAssignPosts() async {
+    try {
+      List<Post> newPosts = await Blog_api.getPosts("me");
+      mypost = newPosts;
+      setState(() {
+        isLoading = false;
+      });
+    } catch (e) {
+      print('Error fetching posts: $e');
+    }
+    
+  }
+  @override
+  void initState() {
+    fetchAndAssignPosts();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+    return Scaffold(
+      body: Container(
+        color: Color.fromARGB(255, 145, 166, 143),
+        child: ListView(
+          padding: const EdgeInsets.symmetric(vertical: 20.0), // Thêm padding nếu cần
           children: [
-              SizedBox(
-                width: double.infinity,
-                height: 55,
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 20,),
-                    child: OutlinedButton.icon(
-                      onPressed:(){
-                        try{
-                         Navigator.push(context, MaterialPageRoute(builder: (context) => AddBlog()  ));
-                         }catch(e){
-                         print(e);
-                        }
-                      },
-                      icon: Icon( Icons.add),
-                      label: const Text('Add new blog !'),
+            Center(
+              child: OutlinedButton.icon(
+                style: OutlinedButton.styleFrom(
+                  overlayColor: const Color.fromARGB(255, 158, 158, 158),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(5),
+                      bottom: Radius.circular(5),
                     ),
                   ),
+                  side: BorderSide.none, // Loại bỏ viền
+                  backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                ),
+                onPressed: () {
+                  try {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AddBlog()),
+                    );
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+                icon: Icon(Icons.add),
+                label: const Text('Add new blog!'),
               ),
+            ),
+            ...mypost.map((e) {
+              return aPostWidget(
+                    id_post: e.id,
+                    profileImageUrl:
+                        'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/',
+                    username: e.authorName,
+                    timestamp: e.createdAt,
+                    title: e.title,
+                    content: e.content,
+                    canPress: true,
+                  );
+            }).toList(),
           ],
         ),
       ),

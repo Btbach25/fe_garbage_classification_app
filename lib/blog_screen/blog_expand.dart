@@ -1,17 +1,17 @@
+import 'package:fe_garbage_classification_app/blog_screen/api/comment_api.dart';
 import 'package:fe_garbage_classification_app/blog_screen/comment_widget.dart';
 import 'package:fe_garbage_classification_app/blog_screen/models/Comment.dart';
 import 'package:fe_garbage_classification_app/blog_screen/postwidget.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
 class BlogExpand extends StatefulWidget {
   final aPostWidget this_widget;
-
+  final int? id_post;
   const BlogExpand({
     super.key,
     required this.this_widget,
+    required this.id_post,
   });
 
   @override
@@ -20,10 +20,46 @@ class BlogExpand extends StatefulWidget {
 
 class _BlogExpandState extends State<BlogExpand> {
   List<Comment> comments = [];
-  bool isLiked = false;
+  bool isLoading = true;
+  final TextEditingController _commentEditingController = TextEditingController();
 
   @override
+  void initState() {
+    fetchAndAssignComments();
+    super.initState();
+  }
+
+  Future<void> fetchAndAssignComments() async {
+    try {
+      List<Comment> newPosts = await CommentApi.getComment(widget.id_post!);
+      comments = newPosts;
+      setState(() {
+        isLoading = false;
+      });
+    } catch (e) {
+      print('Error fetching posts: $e');
+    }
+  }
+
+  @override
+  void dispose() {
+    _commentEditingController.dispose();
+    super.dispose();
+  }
+  Future<void> _handleAddComment() async{
+    final String  comment = _commentEditingController.text;
+
+    Comment post = new Comment(content: comment);
+    try{
+      await CommentApi.uploadComment(widget.id_post!,post);
+      fetchAndAssignComments();
+    } catch (e) {
+      print('Failed to post blog: $e');
+    }
+  }
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 30,
@@ -32,14 +68,15 @@ class _BlogExpandState extends State<BlogExpand> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: SingleChildScrollView( // Added SingleChildScrollView
-        padding: const EdgeInsets.only(top: 30.0),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.only(top: 5.0,bottom:70 ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 10),
             // Profile section
             aPostWidget(
+              id_post: widget.this_widget.id_post,
               profileImageUrl: widget.this_widget.profileImageUrl,
               username: widget.this_widget.username,
               timestamp: widget.this_widget.timestamp,
@@ -47,13 +84,10 @@ class _BlogExpandState extends State<BlogExpand> {
               content: widget.this_widget.content,
               canPress: false,
             ),
-            // Post details (title, optional actions)
-
             SizedBox(height: 30),
-
             ListView.builder(
-              shrinkWrap: true, // Wrap content vertically
-              physics: NeverScrollableScrollPhysics(), // Prevent unnecessary scrolling
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
               itemCount: comments.length,
               itemBuilder: (context, index) {
                 return CommentWidget(comment: comments[index]);
@@ -62,19 +96,42 @@ class _BlogExpandState extends State<BlogExpand> {
           ],
         ),
       ),
+      bottomSheet: AnimatedPadding(
+        padding: EdgeInsets.only(bottom: 5),
+        duration: const Duration(milliseconds: 100),
+        child: Container(
+          padding: EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                child: TextFormField(
+                  controller: _commentEditingController,
+                  maxLines: 5,
+                  minLines: 1,
+                  // onFieldSubmitted: (value) => _handleAddComment(),
+                  validator: MultiValidator([
+                    RequiredValidator(errorText: 'Enter a description'),
+                  ]),
+                  decoration: InputDecoration(
+                    hintText: 'Viết bình luận...',
+                    constraints: BoxConstraints(maxWidth: 500.0),
+                    border: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Color.fromARGB(255, 79, 187, 90)),
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                  ),
+                ),
+              ),
+              IconButton(
+                icon: Icon(Icons.send),
+                color: Color.fromARGB(255, 79, 187, 90),
+                onPressed: _handleAddComment,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
-  }
-
-  Widget _buildContent(String content) {
-    if (content.startsWith('http')) {
-      // Handle image (use CachedNetworkImage for optimization)
-      return Image.network(content, fit: BoxFit.cover);
-    } else if (content.endsWith('.mp4')) {
-      // Handle video (use video_player package)
-      return Text(content); // Replace with your video player implementation
-    } else {
-      // Default to text
-      return Text(content);
-    }
   }
 }
