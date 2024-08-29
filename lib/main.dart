@@ -5,7 +5,8 @@ import 'package:fe_garbage_classification_app/start_screen/network/token_storage
 import 'package:fe_garbage_classification_app/start_screen/welcome.dart';
 import 'package:flutter/material.dart'; 
 import 'package:shared_preferences/shared_preferences.dart'; 
-  
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -29,6 +30,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
+      locale: Locale('vi', 'VN'), // Đặt ngôn ngữ mặc định là tiếng Việt
+      supportedLocales: [
+        Locale('en', 'US'),
+        Locale('vi', 'VN'),
+      ],
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -47,7 +58,9 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 79, 187, 90)),
         useMaterial3: true,
+        textTheme: GoogleFonts.openSansTextTheme(),
       ),
+      
       home: FutureBuilder<bool>(
         future: _submitLogin(),
         builder: (context, snapshot) {

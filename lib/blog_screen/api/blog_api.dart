@@ -90,10 +90,10 @@ class Blog_api{
     );
 
     if (response.statusCode != 201) {
-      throw Exception('Failed to load posts');
+      throw Exception('Failed to upload posts');
     }
   } else if (response.statusCode != 201) {
-      throw Exception('Failed to load posts');
+    throw Exception('Failed to upload posts');
   }
   }
 }

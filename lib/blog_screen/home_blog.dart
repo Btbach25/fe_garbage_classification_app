@@ -78,9 +78,9 @@ class _homeblog_State extends State<homeblog_> {
      LayoutBuilder(
       builder: (context,constraints) {
         return Scaffold(
-          backgroundColor: Color(0xFFF4EDED),
+          backgroundColor: Color.fromARGB(255, 255, 250, 250),
           appBar: AppBar(
-            backgroundColor:Color(0xFFF4EDED) ,
+            backgroundColor:Color.fromARGB(255, 255, 250, 250),
             title: Text("What's news"),
             centerTitle: true,
             actions: [
@@ -115,7 +115,7 @@ class _homeblog_State extends State<homeblog_> {
                     ),
                   child: NavigationBar(
                     
-                    backgroundColor: Color(0xFFF4EDED),
+                    backgroundColor: Color.fromARGB(255, 255, 250, 250),
                     height: 70,
                     destinations: const [
                         //Text('Home'),
@@ -172,7 +172,6 @@ class __newsfeedState extends State<_newsfeed> {
     try {
       List<Post> newPosts = await Blog_api.getPosts("");
       mypost = newPosts;
-      print(mypost);
       setState(() {
         isLoading = false;
       });
@@ -200,30 +199,9 @@ class __newsfeedState extends State<_newsfeed> {
           ),
       )):
       ListView(
-        children:mypost.map((e){
-          return Padding(
-            
-            padding: const EdgeInsets.only(top: 3.0),
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                overlayColor: Colors.grey,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(5),
-                    bottom: Radius.circular(5),
-                  ),
-                ),
-                side: BorderSide.none, // Loại bỏ viền
-                backgroundColor: const Color(0xFFF4EDED),
-              ),
-
-            
-              onPressed:(){
-              },
-              child: aPostWidget(profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/ ', 
-                username: e.authorName , timestamp: e.createdAt, title: e.title, content: e.content),
-            )
-          );
+        children: mypost.map((e){
+          return aPostWidget(id_post: e.id,profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/ ', 
+                username: e.authorName , timestamp: e.createdAt, title: e.title, content: e.content, canPress: true,);
         }).toList(),
       ),
     );
@@ -245,7 +223,6 @@ class __myBlogsState extends State<_myBlogs> {
     try {
       List<Post> newPosts = await Blog_api.getPosts("me");
       mypost = newPosts;
-      print(mypost);
       setState(() {
         isLoading = false;
       });
@@ -295,30 +272,16 @@ class __myBlogsState extends State<_myBlogs> {
               ),
             ),
             ...mypost.map((e) {
-              return Padding(
-                padding: const EdgeInsets.only(top: 3.0),
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    overlayColor: Colors.grey,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(5),
-                        bottom: Radius.circular(5),
-                      ),
-                    ),
-                    backgroundColor: const Color(0xFFF4EDED),
-                  ),
-                  onPressed: () {},
-                  child: aPostWidget(
+              return aPostWidget(
+                    id_post: e.id,
                     profileImageUrl:
                         'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/',
                     username: e.authorName,
                     timestamp: e.createdAt,
                     title: e.title,
                     content: e.content,
-                  ),
-                ),
-              );
+                    canPress: true,
+                  );
             }).toList(),
           ],
         ),
