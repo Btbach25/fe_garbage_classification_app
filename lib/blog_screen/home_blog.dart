@@ -4,7 +4,7 @@ import 'package:fe_garbage_classification_app/blog_screen/add_blog.dart';
 import 'package:fe_garbage_classification_app/blog_screen/api/blog_api.dart';
 import 'package:fe_garbage_classification_app/blog_screen/models/Post.dart';
 import 'package:fe_garbage_classification_app/blog_screen/postwidget.dart';
-import 'package:fe_garbage_classification_app/start_screen/network/google_sign_in.dart';
+import 'package:fe_garbage_classification_app/start_screen/api/google_sign_in.dart';
 import 'package:fe_garbage_classification_app/start_screen/welcome.dart';
 import 'package:flutter/foundation.dart'; 
 import 'package:flutter/material.dart';
@@ -165,7 +165,7 @@ class _newsfeed extends StatefulWidget {
   const _newsfeed({super.key});
 }
 
-class __newsfeedState extends State<_newsfeed> {
+class __newsfeedState extends State<_newsfeed> with WidgetsBindingObserver {
   List<Post> mypost = [];
   bool isLoading = true;
   Future<void> fetchAndAssignPosts() async {
@@ -200,8 +200,8 @@ class __newsfeedState extends State<_newsfeed> {
       )):
       ListView(
         children: mypost.map((e){
-          return aPostWidget(id_post: e.id,profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/ ', 
-                username: e.authorName , timestamp: e.createdAt, title: e.title, content: e.content, canPress: true,);
+          return  aPostWidget(id_post: e.id,profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/ ', 
+                username: e.authorName , timestamp: e.createdAt, title: e.title, content: e.content, canPress: true, status_like: e.statusLike,react_id: e.react_id,);
         }).toList(),
       ),
     );
@@ -217,6 +217,7 @@ class _myBlogs extends StatefulWidget {
 }
 
 class __myBlogsState extends State<_myBlogs> {
+  
   List<Post> mypost = [];
   bool isLoading = true;
   Future<void> fetchAndAssignPosts() async {
@@ -236,6 +237,7 @@ class __myBlogsState extends State<_myBlogs> {
     fetchAndAssignPosts();
     super.initState();
   }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -281,6 +283,8 @@ class __myBlogsState extends State<_myBlogs> {
                     title: e.title,
                     content: e.content,
                     canPress: true,
+                    status_like: e.statusLike,
+                    react_id: e.react_id,
                   );
             }).toList(),
           ],

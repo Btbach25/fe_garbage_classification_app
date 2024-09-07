@@ -2,12 +2,13 @@
 import 'dart:ui';
 import 'package:fe_garbage_classification_app/blog_screen/home_blog.dart';
 import 'package:fe_garbage_classification_app/start_screen/change_pass.dart';
-import 'package:fe_garbage_classification_app/start_screen/network/google_sign_in.dart';
+import 'package:fe_garbage_classification_app/start_screen/api/google_sign_in.dart';
+import 'package:fe_garbage_classification_app/start_screen/getusername.dart';
 import 'package:fe_garbage_classification_app/start_screen/signup.dart';
 import 'package:flutter/foundation.dart'; 
 import 'package:flutter/material.dart'; 
 import 'package:form_field_validator/form_field_validator.dart';
-import 'network/token_storage.dart';
+import 'api/token_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 class Login_ extends StatefulWidget {
   const Login_({super.key});
@@ -15,14 +16,15 @@ class Login_ extends StatefulWidget {
   @override
   State<Login_> createState() => _Login_State();
 }
-String? errorMessage = null;
+String? errorMessage;
 class _Login_State extends State<Login_> {
   final _formkey = GlobalKey<FormState>(); 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordHidden = true ;
 
-   void initState() {
+  @override
+  void initState() {
     super.initState();
     errorMessage = null; // Khởi tạo lại errorMessage khi màn hình được hiển thị
   }
@@ -32,8 +34,9 @@ class _Login_State extends State<Login_> {
       GoogleSignInAccount? googleUser = await GoogleSignInApi.login();
       GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
       final accessToken = googleAuth.accessToken;
-      await GoogleSignInApi.loginWithGoogle(accessToken!);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homeblog_()  ));
+      await GoogleSignInApi.loginWithGoogle(accessToken!)?
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homeblog_()  )):
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Getusername()  ));
     } catch (error) {
       print(error);
     }

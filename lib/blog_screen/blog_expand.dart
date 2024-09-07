@@ -53,6 +53,7 @@ class _BlogExpandState extends State<BlogExpand> {
     try{
       await CommentApi.uploadComment(widget.id_post!,post);
       fetchAndAssignComments();
+      _commentEditingController.clear();
     } catch (e) {
       print('Failed to post blog: $e');
     }
@@ -64,7 +65,7 @@ class _BlogExpandState extends State<BlogExpand> {
       appBar: AppBar(
         toolbarHeight: 30,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -73,7 +74,7 @@ class _BlogExpandState extends State<BlogExpand> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             // Profile section
             aPostWidget(
               id_post: widget.this_widget.id_post,
@@ -83,6 +84,8 @@ class _BlogExpandState extends State<BlogExpand> {
               title: widget.this_widget.title,
               content: widget.this_widget.content,
               canPress: false,
+              status_like: widget.this_widget.status_like,
+              react_id: widget.this_widget.react_id,
             ),
             SizedBox(height: 30),
             ListView.builder(
@@ -115,7 +118,7 @@ class _BlogExpandState extends State<BlogExpand> {
                   ]),
                   decoration: InputDecoration(
                     hintText: 'Viết bình luận...',
-                    constraints: BoxConstraints(maxWidth: 500.0),
+                    constraints: const BoxConstraints(maxWidth: 500.0),
                     border: OutlineInputBorder(
                       borderSide: const BorderSide(color: Color.fromARGB(255, 79, 187, 90)),
                       borderRadius: BorderRadius.circular(15.0),

@@ -1,6 +1,8 @@
-import 'package:flutter/foundation.dart';
+import 'package:fe_garbage_classification_app/blog_screen/home_blog.dart';
+import 'package:fe_garbage_classification_app/start_screen/api/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Getusername extends StatefulWidget {
   const Getusername({super.key});
@@ -10,6 +12,23 @@ class Getusername extends StatefulWidget {
 }
 
 class _GetusernameState extends State<Getusername> {
+
+  final TextEditingController _usernameController = TextEditingController();
+
+  Future<void> _handleInputUsername() async{
+    String? username = _usernameController.text;
+    try{
+      GoogleSignInAccount? googleUser = await GoogleSignInApi.login();
+      GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+      final accessToken = googleAuth.accessToken;
+      await GoogleSignInApi.SigninwithGoogle(username,accessToken!);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homeblog_()  ));
+    }
+    catch(e){
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,10 +53,10 @@ class _GetusernameState extends State<Getusername> {
                     ),
                   ),
               ),
-              Row(
+              const Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only( left: 25),
+                    padding: EdgeInsets.only( left: 25),
                     child: Column(
                       children: <Widget>[
                         Text('Everything is done!', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold , color: Color.fromARGB(255, 79, 187, 90)),),
@@ -46,10 +65,10 @@ class _GetusernameState extends State<Getusername> {
                   ),
                 ],
               ),
-              Row(
+              const Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only( left: 29),
+                    padding: EdgeInsets.only( left: 29),
                     child: Column(
                       children: <Widget>[
                         Text('What should I call you?'),
@@ -62,11 +81,12 @@ class _GetusernameState extends State<Getusername> {
               Padding(
                           padding: const EdgeInsets.all(31.0),
                           child: TextFormField(
+                            controller: _usernameController,
                             validator: MultiValidator([
                               RequiredValidator(errorText: 'Enter your username !'),
                               //EmailValidator(errorText: 'Correct email filled !'),
                             ]),
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               hintText: 'Enter Username' , 
                               labelText:  'Username' ,
                               prefixIcon: Icon(Icons.person , color: Color.fromARGB(255, 132, 162, 135), ), 
@@ -86,10 +106,10 @@ class _GetusernameState extends State<Getusername> {
                             child: Center(
                               child: ElevatedButton(
                                 style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 79, 187, 90)),
+                                  backgroundColor: WidgetStateProperty.all(Color.fromARGB(255, 79, 187, 90)),
                                 ),
                                 child: Text( 'Enter!', style: TextStyle(color: Colors.white,  fontSize:22 ,  ),) ,                                                              
-                                onPressed:(){},
+                                onPressed:_handleInputUsername,
                               ),
                             ),
                             width: MediaQuery.of(context).size.width, 

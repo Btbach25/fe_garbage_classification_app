@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 import 'package:fe_garbage_classification_app/blog_screen/models/Comment.dart';
-import 'package:fe_garbage_classification_app/start_screen/network/token_storage.dart';
+import 'package:fe_garbage_classification_app/start_screen/api/token_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 class CommentApi{
