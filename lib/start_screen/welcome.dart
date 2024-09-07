@@ -1,6 +1,6 @@
 import 'package:fe_garbage_classification_app/blog_screen/home_blog.dart';
 import 'package:fe_garbage_classification_app/start_screen/getusername.dart';
-import 'package:fe_garbage_classification_app/start_screen/network/google_sign_in.dart';
+import 'package:fe_garbage_classification_app/start_screen/api/google_sign_in.dart';
 import 'package:flutter/foundation.dart'; 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';

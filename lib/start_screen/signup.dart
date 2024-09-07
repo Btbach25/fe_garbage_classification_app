@@ -1,11 +1,8 @@
 
 import 'package:fe_garbage_classification_app/blog_screen/home_blog.dart';
-import 'package:fe_garbage_classification_app/start_screen/network/google_sign_in.dart';
-import 'package:flutter/foundation.dart'; 
+import 'package:fe_garbage_classification_app/start_screen/api/google_sign_in.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart'; 
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:fe_garbage_classification_app/start_screen/login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Signup_ extends StatefulWidget {
@@ -63,10 +60,10 @@ class _Signup_State extends State<Signup_> {
                   ),
                 ],
               ),
-              Row(
+              const Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only( left: 25),
+                    padding: EdgeInsets.only( left: 25),
                     child: Column(
                       children: <Widget>[
                         Text(' Get On Board! ', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 79, 187, 90) ),),
@@ -76,10 +73,10 @@ class _Signup_State extends State<Signup_> {
                   ),
                 ],
               ),
-              Row(
+              const Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only( left: 29),
+                    padding: EdgeInsets.only( left: 29),
                     child: Column(
                       children: <Widget>[
                         //Text(' Get On Board! ', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold ),),
@@ -108,7 +105,7 @@ class _Signup_State extends State<Signup_> {
                               RequiredValidator(errorText: 'Enter email address !'),
                               EmailValidator(errorText: 'Correct email filled !'),
                             ]),
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               hintText: 'Enter email' , 
                               labelText:  'Your email' ,
                               prefixIcon: Icon(Icons.email, color: Color.fromARGB(255, 79, 187, 90),), 
