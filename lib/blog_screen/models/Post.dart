@@ -10,7 +10,6 @@ class Post {
   int? likeCount;
   int? dislikeCount;
   int? comments;
-  bool? statusLike;
   int? react_id;
   Post(
       {this.title,
@@ -24,7 +23,6 @@ class Post {
       this.likeCount,
       this.dislikeCount,
       this.comments,
-      this.statusLike,
       this.react_id});
 
   Post.fromJson(Map<String, dynamic> json) {
@@ -39,7 +37,6 @@ class Post {
     likeCount = json['like_count'];
     dislikeCount = json['dislike_count'];
     comments = json['comments'];
-    statusLike = json['status_like'];
     react_id = json['react_id'];
   }
 
@@ -56,7 +53,6 @@ class Post {
     data['like_count'] = this.likeCount;
     data['dislike_count'] = this.dislikeCount;
     data['comments'] = this.comments;
-    data['status_like'] = this.statusLike;
     data['react_id'] = this.react_id;
     return data;
   }

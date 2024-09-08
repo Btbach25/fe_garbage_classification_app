@@ -6,11 +6,8 @@ import 'package:fe_garbage_classification_app/blog_screen/models/Post.dart';
 import 'package:fe_garbage_classification_app/blog_screen/postwidget.dart';
 import 'package:fe_garbage_classification_app/start_screen/api/google_sign_in.dart';
 import 'package:fe_garbage_classification_app/start_screen/welcome.dart';
-import 'package:flutter/foundation.dart'; 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';  
 class homeblog_ extends StatefulWidget {
   const homeblog_({super.key});
@@ -20,11 +17,8 @@ class homeblog_ extends StatefulWidget {
 }
 
 class _homeblog_State extends State<homeblog_> {
-
   var selectedIndex = 0;  
   DateTime? lastPressed;
-
-  
 
   //Method handle pop up
   Future<bool> _onWillPop() async { 
@@ -180,6 +174,11 @@ class __newsfeedState extends State<_newsfeed> with WidgetsBindingObserver {
     }
     
   }
+  void updatePost(int index, Post updatedPost) {
+    setState(() {
+      mypost[index] = updatedPost;
+    });
+  }
   @override
   void initState() {
     fetchAndAssignPosts();
@@ -199,9 +198,23 @@ class __newsfeedState extends State<_newsfeed> with WidgetsBindingObserver {
           ),
       )):
       ListView(
-        children: mypost.map((e){
-          return  aPostWidget(id_post: e.id,profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/ ', 
-                username: e.authorName , timestamp: e.createdAt, title: e.title, content: e.content, canPress: true, status_like: e.statusLike,react_id: e.react_id,);
+  children: mypost.asMap().entries.map((entry) {
+    int index = entry.key; // Lấy index của phần tử
+    var e = entry.value;   // Lấy giá trị của phần tử (Post)
+          return aPostWidget(
+            post: e,
+            id_post: e.id,
+            profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/',
+            username: e.authorName,
+            timestamp: e.createdAt,
+            title: e.title,
+            content: e.content,
+            canPress: true,
+            react_id: e.react_id,
+            onChildClick: () {
+              updatePost(index,e); 
+            },
+          );
         }).toList(),
       ),
     );
@@ -246,46 +259,63 @@ class __myBlogsState extends State<_myBlogs> {
         child: ListView(
           padding: const EdgeInsets.symmetric(vertical: 20.0), // Thêm padding nếu cần
           children: [
-            Center(
-              child: OutlinedButton.icon(
-                style: OutlinedButton.styleFrom(
-                  overlayColor: const Color.fromARGB(255, 158, 158, 158),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(5),
-                      bottom: Radius.circular(5),
+          Container(
+            color: Color.fromARGB(255, 255, 250, 250),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(5),
+                  color: Color.fromARGB(255, 255, 250, 250),
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage('https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/'),
+                    radius: 24.0, // Adjust avatar size
+                  ),
+                ),
+                OutlinedButton.icon(
+                  style: OutlinedButton.styleFrom(
+                    overlayColor: const Color.fromARGB(255, 158, 158, 158),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(15),
+                        bottom: Radius.circular(15),
+                      ),
+                    ),
+                    side: BorderSide(
+                      color: Colors.black, // No visible border
+                      width: 2.0,
                     ),
                   ),
-                  side: BorderSide.none, // Loại bỏ viền
-                  backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                  onPressed: () {
+                    try {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AddBlog()),
+                      );
+                    } catch (e) {
+                      print("Error: $e");
+                    }
+                  },
+                  icon: const Icon(Icons.add),
+                  label: const Text('Add new blog!'),
                 ),
-                onPressed: () {
-                  try {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => AddBlog()),
-                    );
-                  } catch (e) {
-                    print(e);
-                  }
-                },
-                icon: Icon(Icons.add),
-                label: const Text('Add new blog!'),
-              ),
+              ],
             ),
+          ),
+
             ...mypost.map((e) {
               return aPostWidget(
-                    id_post: e.id,
-                    profileImageUrl:
-                        'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/',
-                    username: e.authorName,
-                    timestamp: e.createdAt,
-                    title: e.title,
-                    content: e.content,
-                    canPress: true,
-                    status_like: e.statusLike,
-                    react_id: e.react_id,
-                  );
+                post: e,
+                id_post: e.id,
+                profileImageUrl:
+                  'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/',
+                username: e.authorName,
+                timestamp: e.createdAt,
+                title: e.title,
+                content: e.content,
+                canPress: true,
+                react_id: e.react_id,
+                onChildClick: fetchAndAssignPosts,
+              );
             }).toList(),
           ],
         ),
