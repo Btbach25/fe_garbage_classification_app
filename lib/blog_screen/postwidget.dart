@@ -1,5 +1,6 @@
 import 'package:fe_garbage_classification_app/blog_screen/api/reaction_api.dart';
 import 'package:fe_garbage_classification_app/blog_screen/blog_expand.dart';
+import 'package:fe_garbage_classification_app/blog_screen/models/Post.dart';
 import 'package:fe_garbage_classification_app/blog_screen/models/Reaction.dart';
 import 'package:flutter/material.dart';
 
@@ -7,18 +8,19 @@ import 'package:flutter/material.dart';
 
 
 class aPostWidget extends StatefulWidget {
+  Post? post;
   final int? id_post;
   final String? profileImageUrl;
   final String? username;
   final String? timestamp;
   final String? title;
-  bool? status_like;
   int? react_id;
   final String? content; // Can be text, image path, or video URL
   final bool canPress;
-
+  final VoidCallback onChildClick;
   aPostWidget({
     super.key,
+    required this.post,
     required this.id_post,
     required this.profileImageUrl,
     required this.username,
@@ -26,8 +28,8 @@ class aPostWidget extends StatefulWidget {
     required this.title,
     required this.content,
     required this.canPress,
-    required this.status_like,
     required this.react_id,
+    required this.onChildClick,
   });
 
   @override
@@ -36,16 +38,22 @@ class aPostWidget extends StatefulWidget {
 
 class _aPostWidgetState extends State<aPostWidget> {
   bool isLoading = false; 
-  bool showNewWidget = false;
-
 
   Future<void> _likeContent() async{
     Reaction react = await ReactionApi.uploadReaction(widget.id_post!);
+    setState(() {
       widget.react_id = react.id;
+      widget.post?.react_id = react.id;
+    });
+      
   }
   Future<void> _unLike() async{
     await ReactionApi.deleteReaction(widget.react_id!);
-    widget.react_id = 0;
+    setState(() {
+      widget.react_id = 0;
+      widget.post?.react_id = 0;
+    });
+    
   }
 
 
@@ -86,14 +94,14 @@ class _aPostWidgetState extends State<aPostWidget> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(widget.username!, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
-                      Text(widget.timestamp!, style: const TextStyle(fontSize: 12.0, color: Colors.black)),
+                      Text(widget.username!, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black,fontSize: 16.0)),
+                      Text(widget.timestamp!, style: const TextStyle(fontSize: 10.0, color: Colors.grey)),
                     ],
                   ),
                 ],
               ),
               const SizedBox(height: 10.0),
-              Text(widget.title!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.black)),
+              Text(widget.title!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0, color: Colors.black)),
               const SizedBox(height: 10.0),
               _buildContent(widget.content!), // Dynamically handle different content types
               const SizedBox(height: 8.0),
@@ -101,7 +109,7 @@ class _aPostWidgetState extends State<aPostWidget> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   IconButton(
-                    icon: !widget.status_like!
+                    icon: widget.react_id==0
                         ? Image.asset(
                             'assets/icon/favorite.png',
                             width: 20,
@@ -114,18 +122,15 @@ class _aPostWidgetState extends State<aPostWidget> {
                             height: 20,
                           ),
                     onPressed: () {
-                      widget.status_like!?_unLike():_likeContent();
-                      setState(() {
-                        widget.status_like=!widget.status_like!;
-                      });
+                      widget.react_id!=0?_unLike():_likeContent();
                     },
                   ),
                   const SizedBox(width: 5),
                   IconButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (widget.canPress) {
                         try {
-                          Navigator.push(
+                          await Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => BlogExpand(
@@ -134,6 +139,7 @@ class _aPostWidgetState extends State<aPostWidget> {
                               )
                             )
                           );
+                          widget.onChildClick();
                         } catch (e) {
                           print(e);
                         }
@@ -166,7 +172,7 @@ class _aPostWidgetState extends State<aPostWidget> {
       // Default to text
       return Text(
         content,
-        style: const TextStyle(color: Colors.black),
+        style: const TextStyle(color: Colors.black,fontSize: 15.0),
       );
     }
   }

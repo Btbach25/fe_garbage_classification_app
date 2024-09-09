@@ -77,6 +77,7 @@ class _BlogExpandState extends State<BlogExpand> {
             const SizedBox(height: 10),
             // Profile section
             aPostWidget(
+              post: widget.this_widget.post,
               id_post: widget.this_widget.id_post,
               profileImageUrl: widget.this_widget.profileImageUrl,
               username: widget.this_widget.username,
@@ -84,8 +85,8 @@ class _BlogExpandState extends State<BlogExpand> {
               title: widget.this_widget.title,
               content: widget.this_widget.content,
               canPress: false,
-              status_like: widget.this_widget.status_like,
               react_id: widget.this_widget.react_id,
+              onChildClick: widget.this_widget.onChildClick,
             ),
             SizedBox(height: 30),
             ListView.builder(

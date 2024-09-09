@@ -31,19 +31,22 @@ class CommentWidget extends StatelessWidget {
                   children: [
                     Text(
                       comment.authorName.toString(),
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),
                     ),
-                    Text(comment.content??'#notthing there!'),
+                    Text('${comment.createdAt.toString()}',style: TextStyle(color: Colors.grey,fontSize: 10.0),),
                   ],
                 ),
               ),
             ],
           ),
-          // Thời gian đăng
-          Text(
-            '${comment.createdAt.toString()}',
-            style: TextStyle(color: Colors.grey),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child:Text(
+              comment.content??'#notthing there!',
+              style: const TextStyle(color: Colors.black,fontSize: 15),
+            ),
           ),
+          
           // Nút tương tác
           Row(
             children: [
