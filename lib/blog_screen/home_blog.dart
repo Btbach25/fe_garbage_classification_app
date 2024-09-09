@@ -199,8 +199,8 @@ class __newsfeedState extends State<_newsfeed> with WidgetsBindingObserver {
       )):
       ListView(
   children: mypost.asMap().entries.map((entry) {
-    int index = entry.key; // Lấy index của phần tử
-    var e = entry.value;   // Lấy giá trị của phần tử (Post)
+          int index = entry.key;
+          var e = entry.value;   
           return aPostWidget(
             post: e,
             id_post: e.id,
@@ -251,6 +251,12 @@ class __myBlogsState extends State<_myBlogs> {
     super.initState();
   }
   
+   void updatePost(int index, Post updatedPost) {
+    setState(() {
+      mypost[index] = updatedPost;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -264,57 +270,65 @@ class __myBlogsState extends State<_myBlogs> {
             child: Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(10),
                   color: Color.fromARGB(255, 255, 250, 250),
                   child: CircleAvatar(
                     backgroundImage: NetworkImage('https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/'),
                     radius: 24.0, // Adjust avatar size
                   ),
                 ),
-                OutlinedButton.icon(
-                  style: OutlinedButton.styleFrom(
-                    overlayColor: const Color.fromARGB(255, 158, 158, 158),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(15),
-                        bottom: Radius.circular(15),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    child: OutlinedButton.icon(
+                      style: OutlinedButton.styleFrom(
+                        overlayColor: const Color.fromARGB(255, 158, 158, 158),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(15),
+                            bottom: Radius.circular(15),
+                          ),
+                        ),
+                        side: BorderSide(
+                          color: Colors.grey, 
+                          width: 2.0,
+                        ),
                       ),
-                    ),
-                    side: BorderSide(
-                      color: Colors.black, // No visible border
-                      width: 2.0,
+                      onPressed: () {
+                        try {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => AddBlog()),
+                          );
+                        } catch (e) {
+                          print("Error: $e");
+                        }
+                      },
+                      label: const Text("What's on your mind?"),
                     ),
                   ),
-                  onPressed: () {
-                    try {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => AddBlog()),
-                      );
-                    } catch (e) {
-                      print("Error: $e");
-                    }
-                  },
-                  icon: const Icon(Icons.add),
-                  label: const Text('Add new blog!'),
                 ),
               ],
             ),
           ),
 
-            ...mypost.map((e) {
-              return aPostWidget(
+          ... mypost.asMap().entries.map((entry) {
+            int index = entry.key;
+            var e = entry.value;   
+            return
+              aPostWidget(
                 post: e,
                 id_post: e.id,
-                profileImageUrl:
-                  'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/',
+                profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/',
                 username: e.authorName,
                 timestamp: e.createdAt,
                 title: e.title,
                 content: e.content,
                 canPress: true,
                 react_id: e.react_id,
-                onChildClick: fetchAndAssignPosts,
+                onChildClick: () {
+                  updatePost(index,e); 
+                },
               );
             }).toList(),
           ],
