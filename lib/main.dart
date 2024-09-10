@@ -1,6 +1,7 @@
 
 import 'dart:async'; 
 import 'package:fe_garbage_classification_app/blog_screen/home_blog.dart';
+import 'package:fe_garbage_classification_app/home_page.dart';
 import 'package:fe_garbage_classification_app/start_screen/api/token_storage.dart';
 import 'package:fe_garbage_classification_app/start_screen/welcome.dart';
 import 'package:flutter/material.dart'; 
@@ -75,7 +76,7 @@ class MyApp extends StatelessWidget {
               body: Center(child: Text('Error occurred')),
             );
           } else if (snapshot.hasData && snapshot.data == true) {
-            return homeblog_();
+            return homePage(); 
           } else {
             return welcum_(); 
           }

@@ -20,7 +20,7 @@ class GoogleSignInApi{
       final prefs = await SharedPreferences.getInstance();
       final data = jsonDecode(response.body);
       try {
-        print(data);
+
         String email = data['email'];
         String firstName = data['first_name'];
         String lastName = data['last_name'];
@@ -49,7 +49,7 @@ class GoogleSignInApi{
     String? email = prefs.getString('email');
     String? last_name = prefs.getString('last_name');
     String? first_name = prefs.getString('first_name');
-    print(username);
+
     final response = await http.post(
       Uri.parse('http://10.0.2.2:8000/auth/google/'),
       headers: <String,String>{

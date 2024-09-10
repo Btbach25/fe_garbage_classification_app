@@ -1,8 +1,9 @@
+import 'dart:ui';
+
 import 'package:fe_garbage_classification_app/blog_screen/add_blog.dart';
 import 'package:fe_garbage_classification_app/blog_screen/api/blog_api.dart';
 import 'package:fe_garbage_classification_app/blog_screen/models/Post.dart';
 import 'package:fe_garbage_classification_app/blog_screen/component/postwidget.dart';
-import 'package:fe_garbage_classification_app/profile_screen/main_profiles.dart';
 import 'package:fe_garbage_classification_app/start_screen/api/google_sign_in.dart';
 import 'package:fe_garbage_classification_app/start_screen/welcome.dart';
 import 'package:flutter/material.dart';
@@ -77,15 +78,22 @@ class _homeblog_State extends State<homeblog_> {
             title: Text("What's news"),
             centerTitle: true,
             actions: [
-              IconButton(
-                icon: Icon(Icons.person),
-                  
-                onPressed:() {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const MainProfiles()),
-                  );
-                },
+              PopupMenuButton(
+                icon: Icon(Icons.menu_outlined),
+                itemBuilder: (context)=>[
+                  PopupMenuItem(
+                    value: 0,
+                    child: Text('Text 1'),
+                  ),
+                  PopupMenuItem(
+                    value: 1,
+                    child: Text('Text 2'),
+                  ),
+                  PopupMenuItem(
+                    value: 2,
+                    child: Text('Text 3'),
+                  ),
+                ]
               ),
             ]
           ) ,
