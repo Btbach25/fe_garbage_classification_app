@@ -78,7 +78,7 @@ class _welcum_State extends State<welcum_> {
                                   child: Center(
                                     child: ElevatedButton(
                                       style: ButtonStyle(
-                                        backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 79, 187, 90)),
+                                        backgroundColor: WidgetStateProperty.all(Color.fromARGB(255, 79, 187, 90)),
                                       ),
                                       child: Text( 'Get Started !', style: TextStyle(color: Colors.white,  fontSize:22 ,  ),) ,                                                              
                                       onPressed: (){
@@ -98,9 +98,9 @@ class _welcum_State extends State<welcum_> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Padding( 
-                                      padding: EdgeInsets.fromLTRB(0, 0, 0, 0), 
-                                        child: Text( 'Already have an account ?', style: TextStyle(color: Colors.black  ),  ),                                                                                                                         
-                                  ),
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 0), 
+                        child: Text( 'Already have an account ?', style: TextStyle(color: Colors.black  ),  ),                                                                                                                         
+                      ),
                       Padding( 
                                   padding: EdgeInsets.fromLTRB(0, 0, 0, 0), 
                                   child: TextButton(

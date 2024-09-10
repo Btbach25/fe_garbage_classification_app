@@ -1,6 +1,7 @@
 
 import 'dart:ui';
 import 'package:fe_garbage_classification_app/blog_screen/home_blog.dart';
+import 'package:fe_garbage_classification_app/home_page.dart';
 import 'package:fe_garbage_classification_app/start_screen/change_pass.dart';
 import 'package:fe_garbage_classification_app/start_screen/api/google_sign_in.dart';
 import 'package:fe_garbage_classification_app/start_screen/getusername.dart';
@@ -35,7 +36,7 @@ class _Login_State extends State<Login_> {
       GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
       final accessToken = googleAuth.accessToken;
       await GoogleSignInApi.loginWithGoogle(accessToken!)?
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homeblog_()  )):
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homePage()  )):
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Getusername()  ));
     } catch (error) {
       print(error);
@@ -57,7 +58,7 @@ class _Login_State extends State<Login_> {
     final String password = _passwordController.text;
     try {
       await TokenStorage.fetchToken(username, password);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homeblog_()  ));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homePage()  ));
     } catch (e) {
       print('Failed to fetch token: $e');
       setState(() {
