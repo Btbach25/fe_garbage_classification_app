@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:fe_garbage_classification_app/blog_screen/add_blog.dart';
 import 'package:fe_garbage_classification_app/blog_screen/api/blog_api.dart';
 import 'package:fe_garbage_classification_app/blog_screen/models/Post.dart';
-import 'package:fe_garbage_classification_app/blog_screen/postwidget.dart';
+import 'package:fe_garbage_classification_app/blog_screen/component/postwidget.dart';
 import 'package:fe_garbage_classification_app/start_screen/api/google_sign_in.dart';
 import 'package:fe_garbage_classification_app/start_screen/welcome.dart';
 import 'package:flutter/material.dart';
@@ -235,7 +235,7 @@ class __myBlogsState extends State<_myBlogs> {
   bool isLoading = true;
   Future<void> fetchAndAssignPosts() async {
     try {
-      List<Post> newPosts = await Blog_api.getPosts("me");
+      List<Post> newPosts = await Blog_api.getPosts("me/");
       mypost = newPosts;
       setState(() {
         isLoading = false;
@@ -279,7 +279,7 @@ class __myBlogsState extends State<_myBlogs> {
                 ),
                 Expanded(
                   child: Container(
-                    padding: const EdgeInsets.all(5),
+                    padding: const EdgeInsets.only(right: 20),
                     child: OutlinedButton.icon(
                       style: OutlinedButton.styleFrom(
                         overlayColor: const Color.fromARGB(255, 158, 158, 158),

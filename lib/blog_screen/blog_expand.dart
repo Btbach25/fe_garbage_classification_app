@@ -1,7 +1,7 @@
 import 'package:fe_garbage_classification_app/blog_screen/api/comment_api.dart';
-import 'package:fe_garbage_classification_app/blog_screen/comment_widget.dart';
+import 'package:fe_garbage_classification_app/blog_screen/component/comment_widget.dart';
 import 'package:fe_garbage_classification_app/blog_screen/models/Comment.dart';
-import 'package:fe_garbage_classification_app/blog_screen/postwidget.dart';
+import 'package:fe_garbage_classification_app/blog_screen/component/postwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 

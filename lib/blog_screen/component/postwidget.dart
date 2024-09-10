@@ -4,9 +4,6 @@ import 'package:fe_garbage_classification_app/blog_screen/models/Post.dart';
 import 'package:fe_garbage_classification_app/blog_screen/models/Reaction.dart';
 import 'package:flutter/material.dart';
 
-
-
-
 class aPostWidget extends StatefulWidget {
   Post? post;
   final int? id_post;
