@@ -78,11 +78,23 @@ class _homeblog_State extends State<homeblog_> {
             title: Text("What's news"),
             centerTitle: true,
             actions: [
-              IconButton(
-              icon: Icon(Icons.person),
-                
-              onPressed:_signout,
-            ),
+              PopupMenuButton(
+                icon: Icon(Icons.menu_outlined),
+                itemBuilder: (context)=>[
+                  PopupMenuItem(
+                    value: 0,
+                    child: Text('Text 1'),
+                  ),
+                  PopupMenuItem(
+                    value: 1,
+                    child: Text('Text 2'),
+                  ),
+                  PopupMenuItem(
+                    value: 2,
+                    child: Text('Text 3'),
+                  ),
+                ]
+              ),
             ]
           ) ,
         
