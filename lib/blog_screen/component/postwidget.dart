@@ -82,19 +82,42 @@ class _aPostWidgetState extends State<aPostWidget> {
             children: [
               // Profile section
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(widget.profileImageUrl!),
-                    radius: 24.0, // Adjust avatar size
-                  ),
-                  const SizedBox(width: 10.0),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
                     children: [
-                      Text(widget.username!, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black,fontSize: 16.0)),
-                      Text(widget.timestamp!, style: const TextStyle(fontSize: 10.0, color: Colors.grey)),
+                      CircleAvatar(
+                        backgroundImage: NetworkImage(widget.profileImageUrl!),
+                        radius: 24.0, // Adjust avatar size
+                      ),
+                      const SizedBox(width: 10.0),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(widget.username!, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black,fontSize: 16.0)),
+                          Text(widget.timestamp!, style: const TextStyle(fontSize: 10.0, color: Colors.grey)),
+                        ],
+                      ),
                     ],
                   ),
+                  PopupMenuButton(
+                    icon: Icon(Icons.more_vert),
+                    itemBuilder: (context)=>[
+                      PopupMenuItem(
+                        value: 0,
+                       child: Text('Text 1'),
+                      ),
+                     PopupMenuItem(
+                       value: 1,
+                       child: Text('Text 2'),
+                      ),
+                     PopupMenuItem(
+                       value: 2,
+                       child: Text('Text 3'),
+                     ),
+                    ]
+                  )
+                  
                 ],
               ),
               const SizedBox(height: 10.0),
