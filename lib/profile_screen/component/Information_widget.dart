@@ -15,21 +15,34 @@ class InforWidget extends StatelessWidget {
            padding: const EdgeInsets.only(top:10),
            child: Container(
               color: Colors.white,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CircleAvatar(
-                    backgroundImage: NetworkImage("https://kynguyenlamdep.com/wp-content/uploads/2022/06/avatar-cute-meo-con-than-chet.jpg"),
-                    radius: 50.0, 
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Text(
-                      profile.name.toString(),
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.green,
+                          width: 4,
+                        )
+                      ),
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage("https://i.pinimg.com/236x/c5/77/99/c5779904a839e55c9592426d0c9ce5ca.jpg"),
+                        radius: 50.0, 
+                        
+                      ),
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text(
+                        profile.name.toString(),
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
          );
