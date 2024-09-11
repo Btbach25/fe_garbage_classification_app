@@ -9,6 +9,7 @@ import 'package:fe_garbage_classification_app/start_screen/signup.dart';
 import 'package:flutter/foundation.dart'; 
 import 'package:flutter/material.dart'; 
 import 'package:form_field_validator/form_field_validator.dart';
+import '../profile_screen/models/Profile.dart';
 import 'api/token_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 class Login_ extends StatefulWidget {
@@ -58,6 +59,7 @@ class _Login_State extends State<Login_> {
     final String password = _passwordController.text;
     try {
       await TokenStorage.fetchToken(username, password);
+      Profile profile = await 
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homePage()  ));
     } catch (e) {
       print('Failed to fetch token: $e');

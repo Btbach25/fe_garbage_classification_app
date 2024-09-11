@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      locale: Locale('vi', 'VN'), // Đặt ngôn ngữ mặc định là tiếng Việt
+      locale: Locale('en', 'US'),
       supportedLocales: [
         Locale('en', 'US'),
         Locale('vi', 'VN'),

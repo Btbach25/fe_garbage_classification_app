@@ -16,7 +16,7 @@ class ProfileAPI {
     String? refresh_token = prefs.getString('refresh_token');
 
     var response = await http.get(
-      Uri.parse('$url/1/'),
+      Uri.parse('$url/profile/me/'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $access_token',

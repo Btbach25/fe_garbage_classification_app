@@ -4,6 +4,7 @@ import 'package:fe_garbage_classification_app/blog_screen/add_blog.dart';
 import 'package:fe_garbage_classification_app/blog_screen/api/blog_api.dart';
 import 'package:fe_garbage_classification_app/blog_screen/models/Post.dart';
 import 'package:fe_garbage_classification_app/blog_screen/component/postwidget.dart';
+import 'package:fe_garbage_classification_app/profile_screen/main_profiles.dart';
 import 'package:fe_garbage_classification_app/start_screen/api/google_sign_in.dart';
 import 'package:fe_garbage_classification_app/start_screen/welcome.dart';
 import 'package:flutter/material.dart';
@@ -83,15 +84,22 @@ class _homeblog_State extends State<homeblog_> {
                 itemBuilder: (context)=>[
                   PopupMenuItem(
                     value: 0,
-                    child: Text('Text 1'),
+                    child: Text('Your Profiles'),
+                    onTap:  () {
+                      try {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MainProfiles()),
+                        );
+                      } catch (e) {
+                        print("Error: $e");
+                      }
+                    },
                   ),
                   PopupMenuItem(
                     value: 1,
-                    child: Text('Text 2'),
-                  ),
-                  PopupMenuItem(
-                    value: 2,
-                    child: Text('Text 3'),
+                    child: Text('Log out'),
+                    onTap: _signout,
                   ),
                 ]
               ),
