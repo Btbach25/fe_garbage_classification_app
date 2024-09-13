@@ -1,3 +1,4 @@
+import 'package:fe_garbage_classification_app/blog_screen/api/blog_api.dart';
 import 'package:fe_garbage_classification_app/blog_screen/api/reaction_api.dart';
 import 'package:fe_garbage_classification_app/blog_screen/blog_expand.dart';
 import 'package:fe_garbage_classification_app/blog_screen/models/Post.dart';
@@ -15,6 +16,7 @@ class aPostWidget extends StatefulWidget {
   final String? content; // Can be text, image path, or video URL
   final bool canPress;
   final VoidCallback onChildClick;
+  final VoidCallback loadpage;
   aPostWidget({
     super.key,
     required this.post,
@@ -27,6 +29,7 @@ class aPostWidget extends StatefulWidget {
     required this.canPress,
     required this.react_id,
     required this.onChildClick,
+    required this.loadpage,
   });
 
   @override
@@ -105,16 +108,12 @@ class _aPostWidgetState extends State<aPostWidget> {
                     itemBuilder: (context)=>[
                       PopupMenuItem(
                         value: 0,
-                       child: Text('Text 1'),
+                        child: Text('Delete post'),
+                        onTap: () async {
+                          await Blog_api.deletePost(widget.id_post!);
+                          widget.loadpage();
+                        },
                       ),
-                     PopupMenuItem(
-                       value: 1,
-                       child: Text('Text 2'),
-                      ),
-                     PopupMenuItem(
-                       value: 2,
-                       child: Text('Text 3'),
-                     ),
                     ]
                   )
                   

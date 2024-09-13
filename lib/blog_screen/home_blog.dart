@@ -234,6 +234,9 @@ class __newsfeedState extends State<_newsfeed> with WidgetsBindingObserver {
             onChildClick: () {
               updatePost(index,e); 
             },
+            loadpage: (){
+              fetchAndAssignPosts();
+            },
           );
         }).toList(),
       ),
@@ -348,6 +351,9 @@ class __myBlogsState extends State<_myBlogs> {
                 react_id: e.react_id,
                 onChildClick: () {
                   updatePost(index,e); 
+                },
+                loadpage: (){
+                  fetchAndAssignPosts();
                 },
               );
             }).toList(),

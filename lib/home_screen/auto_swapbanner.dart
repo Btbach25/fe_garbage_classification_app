@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 
 class AutoSwapBanner extends StatefulWidget {
   final List<String> imageUrls;
-  final Duration duration;
 
-  const AutoSwapBanner({Key? key, required this.imageUrls, this.duration = const Duration(seconds: 3)}) : super(key: key);
+  AutoSwapBanner({required this.imageUrls});
 
   @override
   _AutoSwapBannerState createState() => _AutoSwapBannerState();
@@ -13,34 +12,46 @@ class AutoSwapBanner extends StatefulWidget {
 
 class _AutoSwapBannerState extends State<AutoSwapBanner> {
   int _currentIndex = 0;
-  late Timer _timer;
+  late PageController _pageController;
+  Timer? _timer;
 
   @override
   void initState() {
     super.initState();
-    _startTimer();
+    _pageController = PageController(initialPage: _currentIndex);
+    
+    _timer = Timer.periodic(Duration(seconds: 5), (Timer timer) {
+      if (_currentIndex < widget.imageUrls.length - 1) {
+        _currentIndex++;
+      } else {
+        _currentIndex = 0;
+      }
+
+      _pageController.animateToPage(
+        _currentIndex,
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeIn,
+      );
+    });
   }
 
   @override
   void dispose() {
-    _timer.cancel();
+    _timer?.cancel();
+    _pageController.dispose();
     super.dispose();
-  }
-
-  void _startTimer() {
-    _timer = Timer.periodic(widget.duration, (timer) {
-      setState(() {
-        _currentIndex = (_currentIndex + 1) % widget.imageUrls.length;
-      });
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     return PageView.builder(
+      controller: _pageController,
       itemCount: widget.imageUrls.length,
       itemBuilder: (context, index) {
-        return Image.network(widget.imageUrls[index], fit: BoxFit.cover);
+        return Image.network(
+          widget.imageUrls[index],
+          fit: BoxFit.cover, 
+        );
       },
       onPageChanged: (index) {
         setState(() {

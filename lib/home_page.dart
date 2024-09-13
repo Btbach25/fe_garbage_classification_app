@@ -3,7 +3,9 @@ import 'package:fe_garbage_classification_app/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class homePage extends StatefulWidget {
-  const homePage({super.key});
+  final int index;
+  const homePage({super.key,
+  required this.index,});
 
   @override
   State<homePage> createState() => _homePageState();
@@ -11,7 +13,14 @@ class homePage extends StatefulWidget {
 
 class _homePageState extends State<homePage> {
 
-  int selectedIndex = 0; 
+  int selectedIndex=0;
+
+  @override
+  void initState() {
+    selectedIndex = widget.index;
+    super.initState();
+  }
+
   void _onItemTapped(int index) {
     setState(() { // Update state when a tab is tapped
       selectedIndex = index;

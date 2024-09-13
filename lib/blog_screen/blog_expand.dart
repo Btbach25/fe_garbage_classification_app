@@ -87,6 +87,7 @@ class _BlogExpandState extends State<BlogExpand> {
               canPress: false,
               react_id: widget.this_widget.react_id,
               onChildClick: widget.this_widget.onChildClick,
+              loadpage: widget.this_widget.loadpage,
             ),
             SizedBox(height: 30),
             ListView.builder(
