@@ -51,33 +51,14 @@ class Blog_api{
   }
 
   static Future<void> uploadPost(Post post) async {
-  final prefs = await SharedPreferences.getInstance();
-  String? access_token = prefs.getString('access_token');
-  String? refresh_token = prefs.getString('refresh_token');
+    final prefs = await SharedPreferences.getInstance();
+    String? access_token = prefs.getString('access_token');
+    String? refresh_token = prefs.getString('refresh_token');
 
-  String? content = post.content;
-  String? title = post.title;
+    String? content = post.content;
+    String? title = post.title;
 
-  var response = await http.post(
-    Uri.parse('$url/'),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Bearer $access_token',
-    },
-    body: json.encode({
-      'content': content,
-      'title': title,
-    }),
-  );
-
-  if (response.statusCode == 401) {
-    // Get access token by refresh token
-    await TokenStorage.getaccessToken(refresh_token!);
-
-    // Retry the request with the new access token
-    access_token = prefs.getString('access_token');
-
-    response = await http.post(
+    var response = await http.post(
       Uri.parse('$url/'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
@@ -89,11 +70,71 @@ class Blog_api{
       }),
     );
 
-    if (response.statusCode != 201) {
+    if (response.statusCode == 401) {
+      // Get access token by refresh token
+      await TokenStorage.getaccessToken(refresh_token!);
+
+      // Retry the request with the new access token
+      access_token = prefs.getString('access_token');
+
+      response = await http.post(
+        Uri.parse('$url/'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $access_token',
+        },
+        body: json.encode({
+          'content': content,
+          'title': title,
+        }),
+      );
+
+      if (response.statusCode != 201) {
+        throw Exception('Failed to upload posts');
+      }
+    } else if (response.statusCode != 201) {
       throw Exception('Failed to upload posts');
     }
-  } else if (response.statusCode != 201) {
-    throw Exception('Failed to upload posts');
   }
+
+  static Future<bool> deletePost(int id_post) async{
+    final prefs = await SharedPreferences.getInstance();
+    String? access_token = prefs.getString('access_token');
+    String? refresh_token = prefs.getString('refresh_token');
+
+    var response = await http.delete(
+      Uri.parse('$url/post/$id_post/delete/'),
+      headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $access_token',
+      },
+    );
+
+    if (response.statusCode == 204){
+      return true;
+    }
+    else if(response.statusCode == 401){
+      // Get access token by refresh token
+      await TokenStorage.getaccessToken(refresh_token!);
+
+      // Retry the request with the new access token
+      access_token = prefs.getString('access_token');
+
+      response = await http.delete(
+        Uri.parse('$url/post/$id_post/delete/'),
+        headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer $access_token',
+        },
+      );
+
+      if(response.statusCode == 204){
+        return true;
+      }
+      else if(response.statusCode == 404){
+        return false;
+      };
+    };
+    return false;
   }
 }

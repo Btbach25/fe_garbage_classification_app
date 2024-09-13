@@ -37,7 +37,7 @@ class _Login_State extends State<Login_> {
       GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
       final accessToken = googleAuth.accessToken;
       await GoogleSignInApi.loginWithGoogle(accessToken!)?
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homePage()  )):
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homePage(index: 0,)  )):
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Getusername()  ));
     } catch (error) {
       print(error);
@@ -60,7 +60,7 @@ class _Login_State extends State<Login_> {
     try {
       await TokenStorage.fetchToken(username, password);
       Profile profile = await 
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homePage()  ));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homePage(index: 0,)  ));
     } catch (e) {
       print('Failed to fetch token: $e');
       setState(() {

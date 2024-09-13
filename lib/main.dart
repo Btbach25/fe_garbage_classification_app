@@ -66,7 +66,6 @@ class MyApp extends StatelessWidget {
         future: _submitLogin(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            // While waiting 
             return Scaffold(
               body: Center(child: CircularProgressIndicator()),
             );
@@ -76,7 +75,7 @@ class MyApp extends StatelessWidget {
               body: Center(child: Text('Error occurred')),
             );
           } else if (snapshot.hasData && snapshot.data == true) {
-            return homePage(); 
+            return homePage(index: 0,); 
           } else {
             return welcum_(); 
           }

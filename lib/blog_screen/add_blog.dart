@@ -1,6 +1,7 @@
 import 'package:fe_garbage_classification_app/blog_screen/api/blog_api.dart';
 import 'package:fe_garbage_classification_app/blog_screen/home_blog.dart';
 import 'package:fe_garbage_classification_app/blog_screen/models/Post.dart';
+import 'package:fe_garbage_classification_app/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 class AddBlog extends StatefulWidget {
@@ -29,7 +30,7 @@ class _AddBlogState extends State<AddBlog> {
     Post post = new Post(title: title,content: content);
     try{
       await Blog_api.uploadPost(post);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homeblog_()  ));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homePage(index: 1,)  ));
     } catch (e) {
       print('Failed to post blog: $e');
     }

@@ -22,8 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 200,
-                height: 200,
+                width: MediaQuery.of(context).size.width*0.75,
+                height: MediaQuery.of(context).size.width*0.55,
                 child: AutoSwapBanner(
                   imageUrls: [
                   'https://i.pinimg.com/564x/bb/48/3f/bb483f7b9c140655630632c7664a5477.jpg',
