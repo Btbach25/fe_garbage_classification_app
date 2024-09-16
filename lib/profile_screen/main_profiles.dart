@@ -41,11 +41,12 @@ class _mainProfiles extends State<MainProfiles>{
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: Column(
+      body: InforWidget(profile: _profile)
+      /*Column(
         children: [
           InforWidget(profile: _profile),
         ],
-      ),
+      ),*/
     );
   }
 }
