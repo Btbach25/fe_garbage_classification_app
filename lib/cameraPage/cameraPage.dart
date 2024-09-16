@@ -48,13 +48,13 @@ class _CameraPageState extends State<CameraPage> {
 
   // Hiển thị thông báo
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Ảnh đã được lưu')),
+      SnackBar(content: Text('Taken photo!')),
     );
     // Hiển thị dialog cho phép người dùng xem ảnh hoặc chia sẻ
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Ảnh đã được lưu'),
+        title: Text('Taken photo'),
         content: Image.file(pictureFile),
         actions: [
           TextButton(
@@ -62,14 +62,14 @@ class _CameraPageState extends State<CameraPage> {
               Navigator.pop(context);
               
             },
-            child: Text('Đóng'),
+            child: Text('Close'),
           ),
           TextButton(
             onPressed: () {
               
               Navigator.pop(context);
             },
-            child: Text('Tích phân'),
+            child: Text('Analyze this photo'),
           ),
         ],
       ),
@@ -94,7 +94,8 @@ class _CameraPageState extends State<CameraPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Camera'),
+        title: Text('Camera' ,  style: TextStyle(fontWeight: FontWeight.bold),),
+        centerTitle: true,
       ),
       body: widget.controller == null
           ? const Center(child: CircularProgressIndicator())
@@ -108,8 +109,8 @@ class _CameraPageState extends State<CameraPage> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Container(
-                    width: 300,
-                    height: 400,
+                    width: 350,
+                    height: 500,
                     decoration: BoxDecoration(
               
                       color: Colors.grey[200],
@@ -129,11 +130,14 @@ class _CameraPageState extends State<CameraPage> {
                   FloatingActionButton(
                     
                     onPressed: clearTemporaryImages,
-                    child: Icon(Icons.delete),                  
+                    child: Icon(Icons.delete_forever_outlined),                  
                   ),
-                  FloatingActionButton(
+                  FloatingActionButton.large(
                     onPressed: _takePicture,
-                    child: Icon(Icons.camera),                  
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50), // Bán kính góc bo tròn
+                    ), 
+                    child: Icon(Icons.camera_alt_outlined),                  
                   ),
                   SizedBox(
                       width: 40,
