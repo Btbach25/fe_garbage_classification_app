@@ -76,7 +76,7 @@ class _homeblog_State extends State<homeblog_> {
           backgroundColor: Color.fromARGB(255, 255, 250, 250),
           appBar: AppBar(
             backgroundColor:Color.fromARGB(255, 255, 250, 250),
-            title: Text("What's news"),
+            title: Text("What's news", style: TextStyle(fontWeight: FontWeight.bold),),
             centerTitle: true,
             actions: [
               PopupMenuButton(
@@ -136,6 +136,7 @@ class _homeblog_State extends State<homeblog_> {
                        NavigationDestination(
                         icon: Icon(Icons.home, ), 
                           label:  'Home',
+                          
                         ),
                         NavigationDestination(
                           icon: Icon(Icons.person), 

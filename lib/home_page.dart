@@ -91,7 +91,7 @@ class _homePageState extends State<homePage> {
               label: 'Blogs',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.camera),
+              icon: Icon(Icons.camera_alt),
               label: 'Camera',
             ),
             BottomNavigationBarItem(
