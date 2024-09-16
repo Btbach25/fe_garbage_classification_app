@@ -11,6 +11,81 @@ class InforWidget extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+    return Scaffold( 
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // avatar
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(width: 0,),
+                Text(
+                  "Profile", style: TextStyle(fontWeight:FontWeight.bold , fontSize: 20 ),
+                ),
+                SizedBox(width: 0,),
+                SizedBox(width: 0,),
+                SizedBox(width: 0,),
+                SizedBox(width: 0,),
+                SizedBox(width: 0,),
+                IconButton(
+                  onPressed:(){}, 
+                  icon: Icon(Icons.settings),
+                  ),
+                SizedBox(width: 0,),
+              ],
+            ),
+            SizedBox(height: 50,),
+            CircleAvatar(
+              radius: 50,
+              backgroundImage: profile.avatar,
+            ),
+            SizedBox(height: 16),
+            Text(
+              "Null" ,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8),
+            // Mô tả
+            Text(
+              'This is my profile description.',
+              textAlign: TextAlign.center,
+            ),
+            
+            SizedBox(height: 40),
+            // Row chứa số bài viết, follower, like
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                //SizedBox(width: 10,),
+                Column(
+                  children: [
+                    Text('Posts', style: TextStyle(fontWeight: FontWeight.bold)), 
+                    Text('100'),
+                  ],
+                ),
+                /*
+                Column(
+                  children: [
+                    Text('Followers', style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text('500'),
+                  ],
+                ),*/
+                Column(
+                  children: [
+                    Text('Likes', style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text('2000'),
+                  ],
+                ),
+                //SizedBox(width: 10,),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+    /*
     return Padding(
            padding: const EdgeInsets.only(top:10),
            child: Container(
@@ -45,6 +120,6 @@ class InforWidget extends StatelessWidget {
                 ),
               ),
             ),
-         );
+         );*/
   }
 }
