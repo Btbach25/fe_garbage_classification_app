@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ProfileAPI {
   static const String url = "http://10.0.2.2:8000/users";
 
-  static Future<Profile> getProfile(int id_user) async {
+  static Future<Profile> getMyProfile() async {
     final prefs = await SharedPreferences.getInstance();
     String? access_token = prefs.getString('access_token');
     String? refresh_token = prefs.getString('refresh_token');
