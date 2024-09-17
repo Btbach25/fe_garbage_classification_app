@@ -21,7 +21,7 @@ class _mainProfiles extends State<MainProfiles>{
   void _loadProfile() async {
   try {
 
-    final profile = await ProfileAPI.getProfile(1);
+    final profile = await ProfileAPI.getMyProfile();
 
     setState(() {
       _profile = profile;

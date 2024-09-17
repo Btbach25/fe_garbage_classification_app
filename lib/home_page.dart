@@ -2,14 +2,21 @@ import 'package:camera/camera.dart';
 import 'package:fe_garbage_classification_app/blog_screen/home_blog.dart';
 import 'package:fe_garbage_classification_app/cameraPage/cameraPage.dart';
 import 'package:fe_garbage_classification_app/home_screen/home_screen.dart';
+import 'package:fe_garbage_classification_app/profile_screen/api/getProfile.dart';
+import 'package:fe_garbage_classification_app/profile_screen/models/Profile.dart';
+import 'package:fe_garbage_classification_app/start_screen/api/google_sign_in.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 
 
 class homePage extends StatefulWidget {
+  Profile? profile;
   final int index;
-  const homePage({super.key,
-  required this.index,});
+  homePage({super.key,
+    required this.index,
+    required this.profile,
+  });
 
   @override
   State<homePage> createState() => _homePageState();
@@ -20,6 +27,10 @@ class _homePageState extends State<homePage> {
   int selectedIndex=0;
   List<CameraDescription> _cameras = [];
   late CameraController _controller;
+
+  void loadProfile() async {
+    widget.profile = await ProfileAPI.getMyProfile();
+  }
 
   @override
   void initState() {
@@ -42,8 +53,14 @@ class _homePageState extends State<homePage> {
         print('No cameras found');
       }
     });
+    loadProfile();
   }
 
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
   void _onItemTapped(int index) {
     setState(() { // Update state when a tab is tapped
       selectedIndex = index;
@@ -56,7 +73,7 @@ class _homePageState extends State<homePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = HomeScreen(); // Replace with HomePage() if it's a class
+        page = HomeScreen(profile: widget.profile!,); 
         break;
       case 1:
         page =  homeblog_();
@@ -65,42 +82,67 @@ class _homePageState extends State<homePage> {
         page = CameraPage( cameras : _cameras , controller: _controller, );
         break;
       case 3:
-        page =  HomeScreen();
+        page =  HomeScreen(profile: widget.profile!,);
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
+    DateTime? lastPressed;
 
-    return Scaffold(
-      
-      body: page,
-      
-      bottomNavigationBar: Container(
-        color: Colors.lightGreen,
-        child: BottomNavigationBar(
-          backgroundColor: Colors.amberAccent,
-          selectedItemColor: Colors.black,
-          unselectedItemColor: Colors.black,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home) ,
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.book),
-              label: 'Blogs',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.camera_alt),
-              label: 'Camera',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.quiz),
-              label: 'Quizz',
-            ),
-          ],
-          currentIndex: selectedIndex,
-          onTap: _onItemTapped,
+    //Method handle pop up
+    Future<bool> _onWillPop() async { 
+      final DateTime now = DateTime.now();
+      if (lastPressed == null || now.difference(lastPressed!) > Duration(seconds: 2)) { //Set the interval to 2 clicks
+        lastPressed = now;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Nhấn thêm lần nữa để thoát')),
+        );
+        return Future.value(false);
+      }
+      return Future.value(true);
+    }
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) async {
+        if (didPop) {
+          return;
+        }
+        final bool shouldPop = await _onWillPop() ?? false;
+        if (context.mounted && shouldPop) {
+          GoogleSignInApi.logout();
+          await SystemNavigator.pop();
+        }
+      },
+      child: Scaffold(
+        body: page,
+        
+        bottomNavigationBar: Container(
+          color: Colors.lightGreen,
+          child: BottomNavigationBar(
+            backgroundColor: Colors.amberAccent,
+            selectedItemColor: Colors.black,
+            unselectedItemColor: Colors.black,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home) ,
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.book),
+                label: 'Blogs',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.camera_alt),
+                label: 'Camera',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.quiz),
+                label: 'Quizz',
+              ),
+            ],
+            currentIndex: selectedIndex,
+            onTap: _onItemTapped,
+          ),
         ),
       ),
     );

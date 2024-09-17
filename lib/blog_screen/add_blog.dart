@@ -30,7 +30,7 @@ class _AddBlogState extends State<AddBlog> {
     Post post = new Post(title: title,content: content);
     try{
       await Blog_api.uploadPost(post);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homePage(index: 1,)  ));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homePage(index: 1,profile: null,)  ));
     } catch (e) {
       print('Failed to post blog: $e');
     }

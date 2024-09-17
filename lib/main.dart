@@ -75,7 +75,7 @@ class MyApp extends StatelessWidget {
               body: Center(child: Text('Error occurred')),
             );
           } else if (snapshot.hasData && snapshot.data == true) {
-            return homePage(index: 0,); 
+            return homePage(index: 0, profile: null); 
           } else {
             return welcum_(); 
           }
