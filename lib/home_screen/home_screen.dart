@@ -12,10 +12,46 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Home" , style: TextStyle(fontWeight: FontWeight.bold),),
-        centerTitle: true,
-      ),
+      appBar: 
+      AppBar(
+          
+          title: Column(
+            children: [
+              Text('Welcome ,', style: TextStyle(fontSize: 13, ),),
+              Text(' #Name ' , style: TextStyle( fontWeight: FontWeight.bold,fontSize: 15,),),
+            ],
+          ),
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: Container(
+              decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.green,
+                          width: 2,
+                        )
+                      ),
+              child: CircleAvatar(
+                backgroundImage: NetworkImage('https://i.pinimg.com/564x/bb/48/3f/bb483f7b9c140655630632c7664a5477.jpg') ,
+                radius: 30,
+              ),
+            ),
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.notifications),
+              onPressed: () {
+                // Xử lý khi nút tìm kiếm được nhấn 
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                // Xử lý khi nút tìm kiếm được nhấn
+              },
+            ),
+          ],
+        ),
       body: Column(
         children: [
           Row(

@@ -42,11 +42,6 @@ class _mainProfiles extends State<MainProfiles>{
         ),
       ),
       body: InforWidget(profile: _profile)
-      /*Column(
-        children: [
-          InforWidget(profile: _profile),
-        ],
-      ),*/
     );
   }
 }
