@@ -3,6 +3,7 @@ class Post {
   String? content;
   int? author;
   String? authorName;
+  String? authorAvatar;
   String? createdAt;
   String? updatedAt;
   int? react;
@@ -23,7 +24,8 @@ class Post {
       this.likeCount,
       this.dislikeCount,
       this.comments,
-      this.react_id});
+      this.react_id,
+      this.authorAvatar});
 
   Post.fromJson(Map<String, dynamic> json) {
     title = json['title'] as String;
@@ -38,6 +40,7 @@ class Post {
     dislikeCount = json['dislike_count'];
     comments = json['comments'];
     react_id = json['react_id'];
+    authorAvatar = json['author_avatar'];
   }
 
   Map<String, dynamic> toJson() {
@@ -54,6 +57,7 @@ class Post {
     data['dislike_count'] = this.dislikeCount;
     data['comments'] = this.comments;
     data['react_id'] = this.react_id;
+    data['author_avatar'] = this.authorAvatar;
     return data;
   }
 }

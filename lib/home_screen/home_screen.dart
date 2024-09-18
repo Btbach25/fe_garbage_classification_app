@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         )
                       ),
               child: CircleAvatar(
-                backgroundImage: NetworkImage('https://i.pinimg.com/564x/bb/48/3f/bb483f7b9c140655630632c7664a5477.jpg') ,
+                backgroundImage: NetworkImage(widget.profile!.avatar.toString()), 
                 radius: 30,
               ),
             ),
