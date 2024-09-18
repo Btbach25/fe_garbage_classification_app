@@ -27,7 +27,6 @@ class _mainProfiles extends State<MainProfiles>{
     setState(() {
       _profile = widget.profile!;
     });
-    print(_profile.avatar.toString());
   } catch (e) {
     print('Error loading profile: $e');
   }

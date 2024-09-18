@@ -8,8 +8,6 @@ import 'package:fe_garbage_classification_app/start_screen/api/google_sign_in.da
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
-
 class homePage extends StatefulWidget {
   Profile? profile;
   final int index;
@@ -27,14 +25,19 @@ class _homePageState extends State<homePage> {
   int selectedIndex=0;
   List<CameraDescription> _cameras = [];
   late CameraController _controller;
-
+  bool isLoading = true;
   void loadProfile() async {
-    widget.profile = await ProfileAPI.getMyProfile();
+    setState(() async {
+      widget.profile = await ProfileAPI.getMyProfile();  
+      isLoading = false;
+    });
+    
   }
 
   @override
   void initState() {
     selectedIndex = widget.index;
+    loadProfile();
     super.initState();
     availableCameras().then((availableCameras) {
       _cameras = availableCameras;
@@ -53,7 +56,6 @@ class _homePageState extends State<homePage> {
         print('No cameras found');
       }
     });
-    loadProfile();
   }
 
   @override
@@ -114,7 +116,14 @@ class _homePageState extends State<homePage> {
         }
       },
       child: Scaffold(
-        body: page,
+        body: isLoading?const Center(
+        child: SizedBox(        
+          width: 30, 
+          height: 30, 
+          child: CircularProgressIndicator(
+            strokeWidth: 4.0, 
+          ),
+      )):page,
         
         bottomNavigationBar: Container(
           color: Colors.lightGreen,

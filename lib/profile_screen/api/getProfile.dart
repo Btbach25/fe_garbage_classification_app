@@ -22,9 +22,8 @@ class ProfileAPI {
         'Authorization': 'Bearer $access_token',
       },
     );
-
+    print("oke");
     if (response.statusCode == 200) {
-
       dynamic data = json.decode(response.body);
       Profile profile = Profile.fromJson(data); 
       return profile;

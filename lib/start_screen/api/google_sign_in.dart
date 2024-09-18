@@ -24,10 +24,14 @@ class GoogleSignInApi{
         String email = data['email'];
         String firstName = data['first_name'];
         String lastName = data['last_name'];
-
+        String avatar = data['avatar'];
+        print("hello ");
+        print(avatar);
         await prefs.setString('email', email);
         await prefs.setString('first_name', firstName);
         await prefs.setString('last_name', lastName);
+        await prefs.setString('avatar', avatar);
+        print(prefs.getString('avatar'));
         return false;
       } catch (e) {
         String accessToken = data['access'];
@@ -49,7 +53,8 @@ class GoogleSignInApi{
     String? email = prefs.getString('email');
     String? last_name = prefs.getString('last_name');
     String? first_name = prefs.getString('first_name');
-
+    String? avatar = prefs.getString('avatar');
+    print(avatar);
     final response = await http.post(
       Uri.parse('http://10.0.2.2:8000/auth/google/'),
       headers: <String,String>{
@@ -60,6 +65,7 @@ class GoogleSignInApi{
         'email': '$email',
         'last_name': '$last_name',
         'first_name': '$first_name',
+        'avatar': '$avatar',
         'access_token':accessToken
       }),
     );
@@ -69,6 +75,7 @@ class GoogleSignInApi{
       prefs.remove('email');
       prefs.remove('last_name');
       prefs.remove('first_name');
+      prefs.remove('avatar');
       final data = jsonDecode(response.body);
 
 

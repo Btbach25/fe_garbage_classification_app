@@ -1,9 +1,9 @@
 class Profile {
   String? name;
   int? user;
-  Null? birthday;
-  Null? address;
-  Null? avatar;
+  DateTime? birthday;
+  String? address;
+  String? avatar;
   int? id;
   String? email;
 
