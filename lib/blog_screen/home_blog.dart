@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:fe_garbage_classification_app/blog_screen/add_blog.dart';
 import 'package:fe_garbage_classification_app/blog_screen/api/blog_api.dart';
 import 'package:fe_garbage_classification_app/blog_screen/models/Post.dart';
@@ -224,7 +222,7 @@ class __newsfeedState extends State<_newsfeed> with WidgetsBindingObserver {
           ),
       )):
       ListView(
-  children: mypost.asMap().entries.map((entry) {
+        children: mypost.asMap().entries.map((entry) {
           int index = entry.key;
           var e = entry.value;   
           return aPostWidget(

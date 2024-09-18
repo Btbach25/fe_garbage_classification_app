@@ -244,7 +244,7 @@ class _Login_State extends State<Login_> {
                             child: Center(
                               child: ElevatedButton(
                                 style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 79, 187, 90)),
+                                  backgroundColor: WidgetStateProperty.all(Color.fromARGB(255, 79, 187, 90)),
                                 ),
                                 child: Text( 'Login', style: TextStyle(color: Colors.white,  fontSize:22 ,  ),) ,                                                              
                                 onPressed: _submitLogin,
@@ -297,7 +297,6 @@ class _Login_State extends State<Login_> {
                                     label: const Text('Sign in with Google. '),
                                   ),
                                 ),
-
                               ],),
                             ),
                           ],
