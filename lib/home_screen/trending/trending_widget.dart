@@ -31,7 +31,6 @@ class _trendingWidState extends State<trendingWid> {
                     ],
                   )
                 ),
-                
                 miniPostWidget(),
                 miniPostWidget(),
                 miniPostWidget(),
