@@ -73,16 +73,16 @@ class _homePageState extends State<homePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = HomeScreen(profile: widget.profile!,); 
+        page = HomeScreen(profile: widget.profile,); 
         break;
       case 1:
-        page =  homeblog_();
+        page =  homeblog_(myprofile: widget.profile,);
         break;
       case 2:
         page = CameraPage( cameras : _cameras , controller: _controller, );
         break;
       case 3:
-        page =  HomeScreen(profile: widget.profile!,);
+        page =  HomeScreen(profile: widget.profile,);
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
