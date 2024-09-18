@@ -1,4 +1,5 @@
 import 'package:fe_garbage_classification_app/home_screen/auto_swapbanner.dart';
+import 'package:fe_garbage_classification_app/home_screen/trending/trending_widget.dart';
 import 'package:fe_garbage_classification_app/profile_screen/models/Profile.dart';
 import 'package:flutter/material.dart';
 
@@ -50,16 +51,17 @@ class _HomeScreenState extends State<HomeScreen> {
             IconButton(
               icon: Icon(Icons.search),
               onPressed: () {
-
               },
             ),
           ],
         ),
       body: Column(
         children: [
+          SizedBox(height: 20,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              
               Container(
                 width: MediaQuery.of(context).size.width*0.75,
                 height: MediaQuery.of(context).size.width*0.55,
@@ -72,9 +74,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
+              
             ],
           ),
           Text("Nothing!"),
+          trendingWid(),
         ],
       )
     );
