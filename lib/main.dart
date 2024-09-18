@@ -29,8 +29,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      locale: Locale('en', 'US'),
-      supportedLocales: [
+      locale: const Locale('en', 'US'),
+      supportedLocales: const [
         Locale('en', 'US'),
         Locale('vi', 'VN'),
       ],

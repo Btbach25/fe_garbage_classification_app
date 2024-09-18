@@ -55,7 +55,7 @@ class _homeblog_State extends State<homeblog_> {
         page = _newsfeed();
         
     case 1:
-        page = _myBlogs();
+        page = _myBlogs(myprofile: widget.myprofile,);
     default:
     throw UnimplementedError('no widget for $selectedIndex');
     }
@@ -228,7 +228,7 @@ class __newsfeedState extends State<_newsfeed> with WidgetsBindingObserver {
           return aPostWidget(
             post: e,
             id_post: e.id,
-            profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/',
+            profileImageUrl: e.authorAvatar,
             username: e.authorName,
             timestamp: e.createdAt,
             title: e.title,
@@ -250,7 +250,10 @@ class __newsfeedState extends State<_newsfeed> with WidgetsBindingObserver {
 
 
 class _myBlogs extends StatefulWidget {
-  const _myBlogs({super.key});
+  final Profile? myprofile;
+  const _myBlogs({super.key,
+    required this.myprofile,
+  });
 
   @override
   State<_myBlogs> createState() => __myBlogsState();
@@ -300,7 +303,7 @@ class __myBlogsState extends State<_myBlogs> {
                   padding: const EdgeInsets.all(10),
                   color: Color.fromARGB(255, 255, 250, 250),
                   child: CircleAvatar(
-                    backgroundImage: NetworkImage('https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/'),
+                    backgroundImage: NetworkImage(widget.myprofile!.avatar.toString()),
                     radius: 24.0, // Adjust avatar size
                   ),
                 ),
@@ -346,7 +349,7 @@ class __myBlogsState extends State<_myBlogs> {
               aPostWidget(
                 post: e,
                 id_post: e.id,
-                profileImageUrl: 'https://www.reddit.com/r/discordapp/comments/6n389p/any_way_to_find_the_image_url_of_someones_avatar/',
+                profileImageUrl: e.authorAvatar,
                 username: e.authorName,
                 timestamp: e.createdAt,
                 title: e.title,
