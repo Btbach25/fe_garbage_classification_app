@@ -1,4 +1,5 @@
 import 'package:fe_garbage_classification_app/blog_screen/home_blog.dart';
+import 'package:fe_garbage_classification_app/home_page.dart';
 import 'package:fe_garbage_classification_app/start_screen/api/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -22,7 +23,7 @@ class _GetusernameState extends State<Getusername> {
       GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
       final accessToken = googleAuth.accessToken;
       await GoogleSignInApi.SigninwithGoogle(username,accessToken!);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homeblog_()  ));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homePage(index: 0,profile: null,)  ));
     }
     catch(e){
       print(e);

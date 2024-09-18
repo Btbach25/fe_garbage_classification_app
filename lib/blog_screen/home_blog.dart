@@ -5,13 +5,18 @@ import 'package:fe_garbage_classification_app/blog_screen/api/blog_api.dart';
 import 'package:fe_garbage_classification_app/blog_screen/models/Post.dart';
 import 'package:fe_garbage_classification_app/blog_screen/component/postwidget.dart';
 import 'package:fe_garbage_classification_app/profile_screen/main_profiles.dart';
+import 'package:fe_garbage_classification_app/profile_screen/models/Profile.dart';
 import 'package:fe_garbage_classification_app/start_screen/api/google_sign_in.dart';
 import 'package:fe_garbage_classification_app/start_screen/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';  
 class homeblog_ extends StatefulWidget {
-  const homeblog_({super.key});
+  final Profile? myprofile;
+  const homeblog_({
+    super.key,
+    required this.myprofile,
+  });
 
   @override
   State<homeblog_> createState() => _homeblog_State();
@@ -89,7 +94,7 @@ class _homeblog_State extends State<homeblog_> {
                       try {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => MainProfiles()),
+                          MaterialPageRoute(builder: (context) => MainProfiles(profile: widget.myprofile,)),
                         );
                       } catch (e) {
                         print("Error: $e");

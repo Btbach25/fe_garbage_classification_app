@@ -2,7 +2,7 @@ import 'package:fe_garbage_classification_app/profile_screen/models/Profile.dart
 import 'package:flutter/material.dart';
 
 class InforWidget extends StatelessWidget {
-  final Profile profile;
+  final Profile? profile;
 
   const InforWidget({
     Key? key,
@@ -53,11 +53,11 @@ class InforWidget extends StatelessWidget {
               SizedBox(height: 50,),
               CircleAvatar(
                 radius: 50,
-                backgroundImage: profile.avatar,
+                backgroundImage: NetworkImage(profile!.avatar.toString()),
               ),
               SizedBox(height: 16),
               Text(
-                "Null" ,
+                profile!.name.toString(),
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8),
