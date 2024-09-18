@@ -4,7 +4,11 @@ import 'package:fe_garbage_classification_app/profile_screen/models/Profile.dart
 import 'package:flutter/material.dart';
 
 class MainProfiles extends StatefulWidget {
-  const MainProfiles({super.key});
+  final Profile? profile;
+  const MainProfiles({
+    super.key,
+    required this.profile,
+  });
 
   @override
   State<StatefulWidget> createState() => _mainProfiles();
@@ -20,12 +24,10 @@ class _mainProfiles extends State<MainProfiles>{
   }
   void _loadProfile() async {
   try {
-
-    final profile = await ProfileAPI.getMyProfile();
-
     setState(() {
-      _profile = profile;
+      _profile = widget.profile!;
     });
+    print(_profile.avatar.toString());
   } catch (e) {
     print('Error loading profile: $e');
   }

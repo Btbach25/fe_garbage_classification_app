@@ -3,7 +3,7 @@ import 'package:fe_garbage_classification_app/profile_screen/models/Profile.dart
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-  final Profile profile;
+  final Profile? profile;
   const HomeScreen({super.key, required this.profile});
 
   @override
@@ -20,7 +20,9 @@ class _HomeScreenState extends State<HomeScreen> {
           title: Column(
             children: [
               Text('Welcome ,', style: TextStyle(fontSize: 13, ),),
-              Text(widget.profile.name.toString(), style: TextStyle( fontWeight: FontWeight.bold,fontSize: 15,),),
+              widget.profile != null?
+              Text(widget.profile!.name.toString(), style: TextStyle( fontWeight: FontWeight.bold,fontSize: 15,),):
+              Text("admin", style: TextStyle( fontWeight: FontWeight.bold,fontSize: 15,),)
             ],
           ),
           leading: Padding(
@@ -43,13 +45,12 @@ class _HomeScreenState extends State<HomeScreen> {
             IconButton(
               icon: Icon(Icons.notifications),
               onPressed: () {
-                // Xử lý khi nút tìm kiếm được nhấn 
               },
             ),
             IconButton(
               icon: Icon(Icons.search),
               onPressed: () {
-                // Xử lý khi nút tìm kiếm được nhấn
+
               },
             ),
           ],
