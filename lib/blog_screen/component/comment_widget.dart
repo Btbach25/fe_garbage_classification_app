@@ -21,7 +21,7 @@ class CommentWidget extends StatelessWidget {
               // Avatar
               CircleAvatar(
                 radius: 20,
-                backgroundImage: NetworkImage('https://example.com/avatar.jpg'),
+                backgroundImage: NetworkImage(comment.authorAvatar.toString()),
               ),
               SizedBox(width: 8),
               // Tên người dùng và nội dung

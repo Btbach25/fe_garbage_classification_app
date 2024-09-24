@@ -55,7 +55,7 @@ class _homeblog_State extends State<homeblog_> {
         page = _newsfeed();
         
     case 1:
-        page = _myBlogs(myprofile: widget.myprofile,);
+        page = myBlogs(myprofile: widget.myprofile,);
     default:
     throw UnimplementedError('no widget for $selectedIndex');
     }
@@ -249,17 +249,17 @@ class __newsfeedState extends State<_newsfeed> with WidgetsBindingObserver {
 }
 
 
-class _myBlogs extends StatefulWidget {
+class myBlogs extends StatefulWidget {
   final Profile? myprofile;
-  const _myBlogs({super.key,
+  const myBlogs({super.key,
     required this.myprofile,
   });
 
   @override
-  State<_myBlogs> createState() => __myBlogsState();
+  State<myBlogs> createState() => __myBlogsState();
 }
 
-class __myBlogsState extends State<_myBlogs> {
+class __myBlogsState extends State<myBlogs> {
   
   List<Post> mypost = [];
   bool isLoading = true;
