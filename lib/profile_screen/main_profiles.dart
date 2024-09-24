@@ -43,13 +43,9 @@ class _mainProfiles extends State<MainProfiles>{
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: Column(
-        children: [
-                 InforWidget(profile: _profile),
-                 
-             Expanded(child: myBlogs(myprofile: _profile)),
-        ], 
-      )
+      body:  myBlogs(myprofile: _profile,isProfile: true,),
+
+
     );
   }
 }
