@@ -2,6 +2,7 @@ import 'package:fe_garbage_classification_app/blog_screen/add_blog.dart';
 import 'package:fe_garbage_classification_app/blog_screen/api/blog_api.dart';
 import 'package:fe_garbage_classification_app/blog_screen/models/Post.dart';
 import 'package:fe_garbage_classification_app/blog_screen/component/postwidget.dart';
+import 'package:fe_garbage_classification_app/profile_screen/component/Information_widget.dart';
 import 'package:fe_garbage_classification_app/profile_screen/main_profiles.dart';
 import 'package:fe_garbage_classification_app/profile_screen/models/Profile.dart';
 import 'package:fe_garbage_classification_app/start_screen/api/google_sign_in.dart';
@@ -55,7 +56,7 @@ class _homeblog_State extends State<homeblog_> {
         page = _newsfeed();
         
     case 1:
-        page = myBlogs(myprofile: widget.myprofile,);
+        page = myBlogs(myprofile: widget.myprofile, isProfile: false);
     default:
     throw UnimplementedError('no widget for $selectedIndex');
     }
@@ -250,9 +251,11 @@ class __newsfeedState extends State<_newsfeed> with WidgetsBindingObserver {
 
 
 class myBlogs extends StatefulWidget {
+  bool isProfile = false;
   final Profile? myprofile;
-  const myBlogs({super.key,
+   myBlogs({super.key,
     required this.myprofile,
+    required this.isProfile,
   });
 
   @override
@@ -294,6 +297,7 @@ class __myBlogsState extends State<myBlogs> {
         child: ListView(
           padding: const EdgeInsets.symmetric(vertical: 20.0), // Thêm padding nếu cần
           children: [
+          !widget.isProfile?SizedBox(height: 0,):Column(children: [InforWidget(profile: widget.myprofile,),SizedBox(height: 10,)],),
           Container(
             color: Color.fromARGB(255, 255, 250, 250),
             child: Row(
