@@ -11,10 +11,8 @@ class InforWidget extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    return Scaffold( 
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
+    return SingleChildScrollView(
+        child: 
             Container (
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -100,12 +98,7 @@ class InforWidget extends StatelessWidget {
                   SizedBox(height: 50,),
                 ],
               ),
-            ),
-            myBlogs(myprofile: profile),
-          ],
-        ),
-        
-      ),
+            ), 
     );
     /*
     return Padding(
