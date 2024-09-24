@@ -77,6 +77,7 @@ class _BlogExpandState extends State<BlogExpand> {
             const SizedBox(height: 10),
             // Profile section
             aPostWidget(
+              user_id: widget.this_widget.user_id,
               post: widget.this_widget.post,
               id_post: widget.this_widget.id_post,
               profileImageUrl: widget.this_widget.profileImageUrl,

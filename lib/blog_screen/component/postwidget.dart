@@ -1,14 +1,20 @@
 import 'package:fe_garbage_classification_app/blog_screen/api/blog_api.dart';
 import 'package:fe_garbage_classification_app/blog_screen/api/reaction_api.dart';
 import 'package:fe_garbage_classification_app/blog_screen/blog_expand.dart';
+import 'package:fe_garbage_classification_app/blog_screen/component/list_userpost_widget.dart';
 import 'package:fe_garbage_classification_app/blog_screen/models/Post.dart';
 import 'package:fe_garbage_classification_app/blog_screen/models/Reaction.dart';
+import 'package:fe_garbage_classification_app/profile_screen/api/getProfile.dart';
+import 'package:fe_garbage_classification_app/profile_screen/component/Information_widget.dart';
+import 'package:fe_garbage_classification_app/profile_screen/main_profiles.dart';
+import 'package:fe_garbage_classification_app/profile_screen/models/Profile.dart';
 import 'package:flutter/material.dart';
 
 class aPostWidget extends StatefulWidget {
   Post? post;
   final int? id_post;
   final String? profileImageUrl;
+  final int? user_id;
   final String? username;
   final String? timestamp;
   final String? title;
@@ -23,6 +29,7 @@ class aPostWidget extends StatefulWidget {
     required this.id_post,
     required this.profileImageUrl,
     required this.username,
+    required this.user_id,
     required this.timestamp,
     required this.title,
     required this.content,
@@ -89,9 +96,22 @@ class _aPostWidgetState extends State<aPostWidget> {
                 children: [
                   Row(
                     children: [
-                      CircleAvatar(
-                        backgroundImage: NetworkImage(widget.profileImageUrl!),
-                        radius: 24.0, // Adjust avatar size
+                      GestureDetector(
+                        onTap: () async {
+
+                          Profile profile = await ProfileAPI.getProfile(widget.user_id!);
+                          print(profile.user);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MainProfiles(profile: profile,)
+                            )
+                          );
+                        },
+                        child: CircleAvatar(
+                          backgroundImage: NetworkImage(widget.profileImageUrl!),
+                          radius: 24.0, // Adjust avatar size
+                        ),
                       ),
                       const SizedBox(width: 10.0),
                       Column(

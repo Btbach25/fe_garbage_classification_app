@@ -1,6 +1,4 @@
-import 'package:fe_garbage_classification_app/blog_screen/home_blog.dart';
-import 'package:fe_garbage_classification_app/profile_screen/api/getProfile.dart';
-import 'package:fe_garbage_classification_app/profile_screen/component/Information_widget.dart';
+import 'package:fe_garbage_classification_app/blog_screen/component/list_userpost_widget.dart';
 import 'package:fe_garbage_classification_app/profile_screen/models/Profile.dart';
 import 'package:flutter/material.dart';
 
