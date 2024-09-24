@@ -289,8 +289,7 @@ class __myBlogsState extends State<myBlogs> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
+    return  Container(
         color: Color.fromARGB(255, 145, 166, 143),
         child: ListView(
           padding: const EdgeInsets.symmetric(vertical: 20.0), // Thêm padding nếu cần
@@ -366,7 +365,6 @@ class __myBlogsState extends State<myBlogs> {
             }).toList(),
           ],
         ),
-      ),
     );
   }
 }

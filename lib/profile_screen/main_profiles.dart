@@ -1,3 +1,4 @@
+import 'package:fe_garbage_classification_app/blog_screen/home_blog.dart';
 import 'package:fe_garbage_classification_app/profile_screen/api/getProfile.dart';
 import 'package:fe_garbage_classification_app/profile_screen/component/Information_widget.dart';
 import 'package:fe_garbage_classification_app/profile_screen/models/Profile.dart';
@@ -42,7 +43,13 @@ class _mainProfiles extends State<MainProfiles>{
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: InforWidget(profile: _profile)
+      body: Column(
+        children: [
+                 InforWidget(profile: _profile),
+                 
+             Expanded(child: myBlogs(myprofile: _profile)),
+        ], 
+      )
     );
   }
 }
