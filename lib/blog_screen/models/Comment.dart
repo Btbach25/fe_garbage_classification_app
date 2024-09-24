@@ -2,6 +2,7 @@ class Comment {
   String? content;
   int? author;
   String? authorName;
+  String? authorAvatar;
   String? createdAt;
   String? updatedAt;
   int? react;
@@ -10,15 +11,18 @@ class Comment {
   int? dislikeCount;
 
   Comment(
-      {this.content,
+    {
+      this.content,
       this.author,
+      this.authorAvatar,
       this.authorName,
       this.createdAt,
       this.updatedAt,
       this.react,
       this.id,
       this.likeCount,
-      this.dislikeCount});
+      this.dislikeCount
+    });
 
   Comment.fromJson(Map<String, dynamic> json) {
     content = json['content'];
@@ -30,6 +34,7 @@ class Comment {
     id = json['id'];
     likeCount = json['like_count'];
     dislikeCount = json['dislike_count'];
+    authorAvatar = json['author_avatar'];
   }
 
   Map<String, dynamic> toJson() {
@@ -43,6 +48,7 @@ class Comment {
     data['id'] = this.id;
     data['like_count'] = this.likeCount;
     data['dislike_count'] = this.dislikeCount;
+    data['author_avatar'] = this.authorAvatar;
     return data;
   }
 }
