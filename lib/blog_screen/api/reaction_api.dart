@@ -64,6 +64,7 @@ class ReactionApi{
       },
       body: json.encode({
         'reaction_type': 1,
+        'content': '$id_post',
       }),
     );
     if(response.statusCode ==201){
