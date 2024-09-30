@@ -9,6 +9,43 @@ class InforWidget extends StatelessWidget {
     required this.profile,
   }) : super(key: key);
   
+  void _showEditPopup(BuildContext context) {
+  showDialog(
+    context: context ,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Change information'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: TextEditingController(text: 'Name'),
+              decoration: InputDecoration(labelText: 'Name '),
+            ),
+            TextField(
+              controller: TextEditingController(text: 'Description'),
+              decoration: InputDecoration(labelText: 'Description'),
+            ),
+            TextField(
+              controller: TextEditingController(text: 'Name'),
+              decoration: InputDecoration(labelText: 'Name '),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              // Cập nhật thông tin và đóng popup
+              Navigator.pop(context);
+            },
+            child: Text('Save'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -44,7 +81,9 @@ class InforWidget extends StatelessWidget {
                       SizedBox(width: 0,),
                       SizedBox(width: 0,),
                       IconButton(
-                        onPressed:(){}, 
+                        onPressed:(){
+                          _showEditPopup(context);
+                        }, 
                         icon: Icon(Icons.settings),
                         ),
                       SizedBox(width: 0,),
